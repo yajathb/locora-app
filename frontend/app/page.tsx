@@ -1,65 +1,210 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Calendar, MapPin, ArrowRight, Sparkles } from "lucide-react";
+import SearchBar from "@/components/SearchBar";
+import EventCard from "@/components/EventCard";
+import PlaceCard from "@/components/PlaceCard";
+import { Event, Place } from "@/types/index";
+import { getFeaturedEvents, getFeaturedPlaces } from "@/lib/api";
 
 export default function Home() {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [places, setPlaces] = useState<Place[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const loadFeatured = async () => {
+      const [featuredEvents, featuredPlaces] = await Promise.all([
+        getFeaturedEvents(),
+        getFeaturedPlaces(),
+      ]);
+      setEvents(featuredEvents);
+      setPlaces(featuredPlaces);
+      setLoading(false);
+    };
+
+    loadFeatured();
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main className="min-h-screen bg-white dark:bg-gray-950">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 py-16 md:py-24 border-b border-gray-200 dark:border-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-4 py-2 rounded-full mb-4">
+              <Sparkles className="w-4 h-4" />
+              <span className="text-sm font-medium">
+                Welcome to Brentwood's Discovery Hub
+              </span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-50 mb-4">
+              Discover What's Happening in{" "}
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+                Brentwood
+              </span>
+            </h1>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Your window into events, places, and opportunities happening right
+              now. Stay connected to your community.
+            </p>
+          </div>
+
+          {/* Search */}
+          <div className="mb-8">
+            <SearchBar
+              onSearch={setSearchQuery}
+              placeholder="Search events, places, opportunities..."
+            />
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/events"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 dark:bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 dark:hover:bg-blue-700 transition shadow-lg hover:shadow-xl"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              <Calendar className="w-5 h-5" />
+              Explore Events
+            </Link>
+            <Link
+              href="/places"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 rounded-lg font-semibold border-2 border-blue-600 dark:border-blue-500 hover:bg-blue-50 dark:hover:bg-gray-700 transition"
             >
-              Learning
-            </a>{" "}
-            center.
+              <MapPin className="w-5 h-5" />
+              Discover Places
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Events */}
+      <section className="py-16 bg-white dark:bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-50">
+                Featured Events
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                Don't miss what's happening around Brentwood
+              </p>
+            </div>
+            <Link
+              href="/events"
+              className="hidden md:flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition"
+            >
+              View All
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <div
+                  key={i}
+                  className="bg-gray-200 dark:bg-gray-800 rounded-xl h-96 animate-pulse"
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-max">
+              {events.map((event) => (
+                <EventCard
+                  key={event.id}
+                  event={event}
+                  featured={event.featured}
+                />
+              ))}
+            </div>
+          )}
+
+          <div className="mt-8 text-center md:hidden">
+            <Link
+              href="/events"
+              className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition"
+            >
+              View All Events
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Places */}
+      <section className="py-16 bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-50">
+                Popular Places
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                Explore the best spots in Brentwood
+              </p>
+            </div>
+            <Link
+              href="/places"
+              className="hidden md:flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition"
+            >
+              View All
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <div
+                  key={i}
+                  className="bg-gray-200 dark:bg-gray-800 rounded-xl h-64 animate-pulse"
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {places.map((place) => (
+                <PlaceCard key={place.id} place={place} />
+              ))}
+            </div>
+          )}
+
+          <div className="mt-8 text-center md:hidden">
+            <Link
+              href="/places"
+              className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition"
+            >
+              View All Places
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="py-16 bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-50 mb-4">
+            About Locora
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
+            Information about Brentwood shouldn't be scattered across outdated
+            websites and disconnected pages. Locora brings everything
+            together—events, places, and opportunities—into one clean,
+            easy-to-use platform that helps you stay engaged with your
+            community.
+          </p>
+          <p className="text-gray-600 dark:text-gray-400">
+            Whether you're looking for the next big event, discovering a new
+            favorite spot, or finding ways to get involved, Locora is your
+            window into what's happening in Brentwood right now.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }
