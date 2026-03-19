@@ -29,20 +29,29 @@ export default function SearchBar({
   }, [onSearch]);
 
   return (
-    <div className="relative w-full max-w-lg mx-auto">
+    <div className="relative w-full max-w-lg mx-auto animate-fade-in-up">
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
+        <Search
+          style={{ color: "var(--text-tertiary)" }}
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5"
+        />
         <input
           type="text"
           value={query}
           onChange={handleChange}
           placeholder={placeholder}
-          className="w-full pl-10 pr-10 py-3 rounded-lg border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/50 transition"
+          style={{
+            backgroundColor: "var(--bg-secondary)",
+            borderColor: "var(--border-color)",
+            color: "var(--text-primary)",
+          }}
+          className="w-full pl-10 pr-10 py-3 rounded-lg border focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 transition"
         />
         {query && (
           <button
             onClick={handleClear}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition"
+            style={{ color: "var(--text-tertiary)" }}
+            className="absolute right-3 top-1/2 -translate-y-1/2 hover:text-blue-600 transition"
           >
             <X className="w-5 h-5" />
           </button>

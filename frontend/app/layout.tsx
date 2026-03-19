@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { DarkModeProvider } from "@/app/DarkModeProvider";
+import { LocationProvider } from "@/app/LocationProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,13 +29,39 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Initial theme styles (server-rendered) to avoid white flash before CSS loads */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `:root{background-color:#ffffff;color:#111827} @media (prefers-color-scheme: dark){:root{background-color:#0f172a;color:#f5f5f5}}`,
+          }}
+        />
+
+        {/* Inline script to set theme and enable animations before first paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){
+  try {
+    var stored = localStorage.getItem('darkMode');
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var shouldDark = stored !== null ? stored === 'true' : prefersDark;
+    if (shouldDark) document.documentElement.classList.add('dark');
+    // Enable animations immediately so CSS rules that depend on this class are active before paint
+    document.documentElement.classList.add('animations-enabled');
+  } catch (e) { /* ignore */ }
+})();`,
+          }}
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-50 transition-colors duration-300`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <DarkModeProvider>
-          <Navbar />
-          {children}
-          <Footer />
+          <LocationProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </LocationProvider>
         </DarkModeProvider>
       </body>
     </html>

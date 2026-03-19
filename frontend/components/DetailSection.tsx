@@ -12,12 +12,14 @@ export default function DetailSection({
   return (
     <div className="mb-6">
       <div className="flex items-center gap-3 mb-2">
-        <div className="w-6 h-6 text-blue-600 dark:text-blue-400">{icon}</div>
-        <h3 className="font-semibold text-gray-900 dark:text-gray-50">
+        <div className="w-6 h-6 text-blue-600">{icon}</div>
+        <h3 style={{ color: "var(--text-primary)" }} className="font-semibold">
           {title}
         </h3>
       </div>
-      <div className="ml-9 text-gray-700 dark:text-gray-300">{content}</div>
+      <div style={{ color: "var(--text-secondary)" }} className="ml-9">
+        {content}
+      </div>
     </div>
   );
 }
