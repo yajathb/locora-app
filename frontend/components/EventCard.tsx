@@ -36,7 +36,7 @@ export default function EventCard({ event, featured }: EventCardProps) {
               alt={event.title}
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="absolute top-3 right-3">
               <CategoryBadge category={event.category} />
             </div>
@@ -64,15 +64,15 @@ export default function EventCard({ event, featured }: EventCardProps) {
               className="space-y-2 text-sm mb-3"
             >
               <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                <Calendar className="w-4 h-4 text-blue-600 shrink-0" />
                 <span>{formatDate(event.date)}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                <Clock className="w-4 h-4 text-blue-600 shrink-0" />
                 <span>{formatTime(event.time)}</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                <MapPin className="w-4 h-4 text-blue-600 shrink-0" />
                 <span className="truncate">{event.location}</span>
               </div>
             </div>

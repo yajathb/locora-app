@@ -65,7 +65,7 @@ export default function Home() {
               className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in-up animate-delay-1"
             >
               Discover What's Happening in{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 {city}
               </span>
             </h1>

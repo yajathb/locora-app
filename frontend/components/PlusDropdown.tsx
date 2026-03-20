@@ -26,18 +26,18 @@ function PlusDropdown() {
 
       {open && (
         <div
-          className="absolute top-[110%] left-0 min-w-[150px] rounded-lg shadow-md z-100 animate-scale-in card border"
+          className="absolute top-[110%] left-0 min-w-37.5 rounded-lg shadow-md z-100 animate-scale-in card border"
           style={{ borderColor: "var(--border-color)" }}
         >
         <a
             href="/events/add"
-            className="block px-4 py-2.5 text-sm nav-link rounded-t-lg hover:bg-[var(--bg-tertiary)] transition-colors duration-200"
+            className="block px-4 py-2.5 text-sm nav-link rounded-t-lg hover:bg-(--bg-tertiary) transition-colors duration-200"
           >
             Add an Event
           </a>
           <a
             href="/places/add"
-            className="block px-4 py-2.5 text-sm nav-link rounded-b-lg hover:bg-[var(--bg-tertiary)] transition-colors duration-200"
+            className="block px-4 py-2.5 text-sm nav-link rounded-b-lg hover:bg-(--bg-tertiary) transition-colors duration-200"
           >
             Add a Place
           </a>
