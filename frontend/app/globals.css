@@ -10,6 +10,12 @@
   --text-tertiary: #9ca3af;
   --border-color: #e5e7eb;
   --shadow-color: rgba(0, 0, 0, 0.1);
+
+  /* Define CSS variables for transformations */
+  --translate-y-20: 20px;
+  --translate-x-10: -10px;
+  --translate-y-neg-4: -4px;
+  --box-shadow-default: 0 12px 24px var(--shadow-color);
 }
 
 html.dark {
@@ -28,7 +34,7 @@ html.dark {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(var(--translate-y-20));
   }
   to {
     opacity: 1;
@@ -59,7 +65,7 @@ html.dark {
 @keyframes slideInFromLeft {
   from {
     opacity: 0;
-    transform: translateX(-10px);
+    transform: translateX(var(--translate-x-10));
   }
   to {
     opacity: 1;
@@ -86,6 +92,7 @@ html.dark {
   h4,
   h5,
   h6 {
+    color: var(--text-primary);
     @apply font-bold;
   }
 }
@@ -144,7 +151,7 @@ html.dark {
   /* Animation utilities (only active when animations are enabled before paint) */
   html.animations-enabled .animate-fade-in-up {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(var(--translate-y-20));
     animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   }
 
@@ -161,7 +168,7 @@ html.dark {
 
   html.animations-enabled .animate-slide-in-left {
     opacity: 0;
-    transform: translateX(-10px);
+    transform: translateX(var(--translate-x-10));
     animation: slideInFromLeft 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
       forwards;
   }
@@ -209,7 +216,7 @@ html.dark {
   }
 
   .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px var(--shadow-color);
+    transform: translateY(var(--translate-y-neg-4));
+    box-shadow: var(--box-shadow-default);
   }
 }

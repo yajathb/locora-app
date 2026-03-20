@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Event } from "@/types/index";
-import { MapPin, Clock, ChevronRight, Calendar } from "lucide-react";
+import { MapPin, Clock, ChevronRight, Calendar, Clock10 } from "lucide-react";
 import CategoryBadge from "./CategoryBadge";
 import { formatDate, formatTime } from "@/lib/api";
 
@@ -45,9 +45,9 @@ export default function EventCard({ event, featured }: EventCardProps) {
           {/* Content */}
           <div className="flex-1 p-4 flex flex-col">
             <h3
+              className="font-bold text-lg transition-colors duration-300 line-clamp-2 mb-2"
               style={{ color: "var(--text-primary)" }}
-              className="font-bold text-lg group-hover:text-blue-600 transition-colors duration-200 line-clamp-2 mb-2"
-            >
+>
               {event.title}
             </h3>
 

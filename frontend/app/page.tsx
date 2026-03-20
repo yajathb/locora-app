@@ -50,8 +50,8 @@ export default function Home() {
           <div className="text-center mb-10">
             <div
               style={{
-                backgroundColor: "rgba(37, 99, 235, 0.1)",
-                color: "rgb(37, 99, 235)",
+                backgroundColor: "var(--bg-primary)",
+                color: "var(--text-primary)",
               }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 animate-fade-in"
             >
@@ -90,7 +90,8 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/events"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-xl animate-fade-in-up animate-delay-4 hover-scale"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-xl animate-fade-in-up animate-delay-4 hover-scale"
+              style={{ backgroundColor: "var(--bg-primary)", color: "var(--text-primary)" }}
             >
               <Calendar className="w-5 h-5" />
               Explore Events
@@ -99,8 +100,8 @@ export default function Home() {
               href="/places"
               style={{
                 backgroundColor: "var(--bg-tertiary)",
-                color: "rgb(37, 99, 235)",
-                borderColor: "rgb(37, 99, 235)",
+                color: "var(--text-primary)",
+                borderColor: "var(--border-color)",
               }}
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold border-2 hover:opacity-80 transition animate-fade-in-up animate-delay-5 hover-scale"
             >
@@ -131,7 +132,7 @@ export default function Home() {
             </div>
             <Link
               href="/events"
-              style={{ color: "rgb(37, 99, 235)" }}
+              style={{ color: "var(--text-primary)" }}
               className="hidden md:flex items-center gap-2 hover:opacity-80 font-semibold transition animate-fade-in-up"
             >
               View All
@@ -164,7 +165,7 @@ export default function Home() {
           <div className="mt-8 text-center md:hidden">
             <Link
               href="/events"
-              style={{ color: "rgb(37, 99, 235)" }}
+              style={{ color: "var(--text-primary)" }}
               className="inline-flex items-center gap-2 hover:opacity-80 font-semibold transition"
             >
               View All Events
@@ -197,7 +198,7 @@ export default function Home() {
             </div>
             <Link
               href="/places"
-              style={{ color: "rgb(37, 99, 235)" }}
+              style={{ color: "var(--text-primary)" }}
               className="hidden md:flex items-center gap-2 hover:opacity-80 font-semibold transition animate-fade-in-up"
             >
               View All
@@ -226,7 +227,7 @@ export default function Home() {
           <div className="mt-8 text-center md:hidden">
             <Link
               href="/places"
-              style={{ color: "rgb(37, 99, 235)" }}
+              style={{ color: "var(--text-primary)" }}
               className="inline-flex items-center gap-2 hover:opacity-80 font-semibold transition"
             >
               View All Places

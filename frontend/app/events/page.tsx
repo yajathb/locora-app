@@ -42,17 +42,29 @@ export default function EventsPage() {
   const categories = Array.from(new Set(events.map((e) => e.category)));
 
   return (
-    <main className="min-h-screen bg-white dark:bg-gray-950">
+    <main
+      className="min-h-screen"
+      style={{
+        backgroundColor: "var(--bg-primary)",
+        color: "var(--text-primary)",
+      }}
+    >
       {/* Header */}
-      <section className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <section
+        className="border-b"
+        style={{
+          backgroundColor: "var(--bg-secondary)",
+          borderColor: "var(--border-color)",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="flex items-center gap-3 mb-4">
-            <Calendar className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-50">
+            <Calendar className="w-8 h-8" style={{ backgroundColor: "var(--bg-tertiary)" }} />
+            <h1 className="text-3xl md:text-4xl font-bold " style={{ color: "var(--text-primary)" }}>
               Events in Brentwood
             </h1>
           </div>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
+          <p className="mb-6" style={{ color: "var(--text-secondary)" }}>
             Discover what's happening around Brentwood. Find events that match
             your interests.
           </p>
@@ -79,7 +91,8 @@ export default function EventsPage() {
                 {[...Array(6)].map((_, i) => (
                   <div
                     key={i}
-                    className="bg-gray-200 dark:bg-gray-800 rounded-xl h-96 animate-pulse"
+                    className="rounded-xl h-96 animate-pulse"
+                    style={{ backgroundColor: "var(--bg-tertiary)" }}
                   />
                 ))}
               </div>
@@ -90,19 +103,31 @@ export default function EventsPage() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
-                <Calendar className="w-12 h-12 text-gray-400 dark:text-gray-600 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-1">
+              <div
+                className="text-center py-12 rounded-lg border"
+                style={{
+                  backgroundColor: "var(--bg-secondary)",
+                  borderColor: "var(--border-color)",
+                }}
+              >
+                <Calendar
+                  className="w-12 h-12 mx-auto mb-3"
+                  style={{ color: "var(--text-secondary)" }}
+                />
+                <h3
+                  className="text-lg font-semibold mb-1"
+                  style={{ color: "var(--text-primary)" }}
+                >
                   No events found
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p style={{ color: "var(--text-secondary)" }}>
                   Try adjusting your filters or search query to find what you're
                   looking for.
                 </p>
               </div>
             )}
             {filteredEvents.length > 0 && (
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-6">
+              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
                 Showing {filteredEvents.length} event
                 {filteredEvents.length !== 1 ? "s" : ""}
               </p>

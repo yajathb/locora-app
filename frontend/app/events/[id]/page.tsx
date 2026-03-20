@@ -37,12 +37,30 @@ export default function EventDetailPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-white dark:bg-gray-950">
+      <main
+        className="min-h-screen"
+        style={{
+          backgroundColor: "var(--bg-primary)",
+          color: "var(--text-primary)",
+        }}
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <div className="bg-white dark:bg-gray-900 rounded-lg p-8 animate-pulse">
-            <div className="h-96 bg-gray-200 dark:bg-gray-800 rounded-lg mb-8" />
-            <div className="h-8 bg-gray-200 dark:bg-gray-800 rounded w-3/4 mb-4" />
-            <div className="h-6 bg-gray-200 dark:bg-gray-800 rounded w-1/2" />
+          <div
+            className="rounded-lg p-8 animate-pulse"
+            style={{ backgroundColor: "var(--bg-secondary)" }}
+          >
+            <div
+              className="h-96 rounded-lg mb-8"
+              style={{ backgroundColor: "var(--bg-tertiary)" }}
+            />
+            <div
+              className="h-8 rounded w-3/4 mb-4"
+              style={{ backgroundColor: "var(--bg-tertiary)" }}
+            />
+            <div
+              className="h-6 rounded w-1/2"
+              style={{ backgroundColor: "var(--bg-tertiary)" }}
+            />
           </div>
         </div>
       </main>
@@ -51,12 +69,21 @@ export default function EventDetailPage() {
 
   if (error || !event) {
     return (
-      <main className="min-h-screen bg-white dark:bg-gray-950 flex items-center justify-center">
+      <main
+        className="min-h-screen flex items-center justify-center"
+        style={{
+          backgroundColor: "var(--bg-primary)",
+          color: "var(--text-primary)",
+        }}
+      >
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50 mb-2">
+          <h1
+            className="text-3xl font-bold mb-2"
+            style={{ color: "var(--text-primary)" }}
+          >
             Event Not Found
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
+          <p className="mb-6" style={{ color: "var(--text-secondary)" }}>
             The event you're looking for doesn't exist.
           </p>
           <Link
@@ -71,20 +98,36 @@ export default function EventDetailPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white dark:bg-gray-950">
+    <main
+      className="min-h-screen"
+      style={{
+        backgroundColor: "var(--bg-primary)",
+        color: "var(--text-primary)",
+      }}
+    >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Back Button */}
         <Link
           href="/events"
-          className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold mb-6 transition"
+          className="inline-flex items-center gap-2 font-semibold mb-6 transition hover:opacity-80"
+          style={{ color: "var(--text-primary)" }}
         >
           <ArrowLeft className="w-5 h-5" />
           Back to Events
         </Link>
 
-        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden">
+        <div
+          className="rounded-xl overflow-hidden shadow-lg"
+          style={{
+            backgroundColor: "var(--bg-secondary)",
+            boxShadow: `var(--box-shadow-default)`,
+          }}
+        >
           {/* Image */}
-          <div className="w-full h-96 overflow-hidden bg-gray-200 dark:bg-gray-800">
+          <div
+            className="w-full h-96 overflow-hidden"
+            style={{ backgroundColor: "var(--bg-tertiary)" }}
+          >
             <img
               src={event.image}
               alt={event.title}
@@ -97,18 +140,18 @@ export default function EventDetailPage() {
             {/* Header */}
             <div className="mb-6">
               <div className="flex items-start justify-between mb-3">
-                <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-50 flex-1">
+                <h1 className="text-4xl font-bold flex-1" style={{color: "var(--text-primary)"}}>
                   {event.title}
                 </h1>
                 <CategoryBadge category={event.category} />
               </div>
-              <p className="text-lg text-gray-600 dark:text-gray-400">
+              <p className="text-lg" style={{color: "var(--text-secondary)"}}>
                 {event.description}
               </p>
             </div>
 
             {/* Details Grid */}
-            <div className="grid md:grid-cols-2 gap-8 mb-8 pb-8 border-b border-gray-200 dark:border-gray-700">
+            <div className="grid md:grid-cols-2 gap-8 mb-8 pb-8 border-b" style={{ borderColor: "var(--border-color)" }}>
               <DetailSection
                 title="Date"
                 icon={<Calendar />}
@@ -129,10 +172,10 @@ export default function EventDetailPage() {
                 icon={<MapPin />}
                 content={
                   <div>
-                    <div className="font-semibold text-gray-900 dark:text-gray-50">
+                    <div className="font-semibold" style={{ color: "var(--text-primary)" }}>
                       {event.location}
                     </div>
-                    <div className="text-gray-600 dark:text-gray-400">
+                    <div className="text-sm" style={{ color: "var(--text-secondary)" }}>
                       {event.address}
                     </div>
                   </div>
@@ -152,7 +195,8 @@ export default function EventDetailPage() {
                   href={event.weblink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 dark:bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 dark:hover:bg-blue-700 transition"
+                  className="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg font-semibold transition"
+                  style={{color: "var(--text-primary)", backgroundColor: "var(--bg-primary)" }}
                 >
                   Learn More
                   <ExternalLink className="w-5 h-5" />
@@ -161,11 +205,11 @@ export default function EventDetailPage() {
             )}
 
             {/* Location Map Info */}
-            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 border border-blue-100 dark:border-blue-900/30">
-              <h3 className="font-semibold text-gray-900 dark:text-gray-50 mb-2">
+            <div className="rounded-lg p-6 border" style={{ borderColor: "var(--border-color)", backgroundColor: "var(--bg-tertiary)" }}>
+              <h3 className="font-semibold" style={{ color: "var(--text-primary)" }}>
                 Getting There
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
                 {event.location} is located at {event.address}. Check the
                 organizer's website for parking and accessibility information.
               </p>

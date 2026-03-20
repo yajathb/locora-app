@@ -33,7 +33,7 @@ export default function RootLayout({
         {/* Initial theme styles (server-rendered) to avoid white flash before CSS loads */}
         <style
           dangerouslySetInnerHTML={{
-            __html: `:root{background-color:#ffffff;color:#111827} @media (prefers-color-scheme: dark){:root{background-color:#0f172a;color:#f5f5f5}}`,
+            __html: `:root{background-color:#ffffff} @media (prefers-color-scheme: dark){:root{background-color:#0f172a}}`,
           }}
         />
 
