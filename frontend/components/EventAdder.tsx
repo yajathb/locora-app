@@ -1,6 +1,12 @@
 "use client";
 import { useState } from "react";
-import axios from "axios";
+import { createClient } from "@supabase/supabase-js";
+import CryptoJS from "crypto-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 export default function EventAdder() {
   const [eventName, setEventName] = useState("");
@@ -16,12 +22,12 @@ export default function EventAdder() {
   const [eventAddress, setEventAddress] = useState("");
 
   const toBase64 = (file: File): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,14 +36,20 @@ export default function EventAdder() {
       alert("Please fill in the required fields: Event Name, Date, and Time.");
       return;
     }
+
     const imageBase64 = eventImage ? await toBase64(eventImage) : null;
+
+    const uniqueString = `${eventName}_${eventDate}_${eventTime}_${eventDescription}`;
+    const id = CryptoJS.MD5(uniqueString).toString();
+
     const payload: Record<string, unknown> = {
+      id,
       name: eventName,
       date: eventDate,
       time: eventTime,
     };
 
-    if (eventEndTime) payload.endTime = eventEndTime;
+    if (eventEndTime) payload.end_time = eventEndTime;
     if (eventDescription) payload.description = eventDescription;
     if (eventLocation) payload.location = eventLocation;
     if (eventCategory) payload.category = eventCategory;
@@ -47,28 +59,22 @@ export default function EventAdder() {
     if (eventAddress) payload.address = eventAddress;
 
     try {
-      const response = await axios.post("http://localhost:5000/api/events/add", payload, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const { error } = await supabase.from("events").insert(payload);
 
-      if (response.status === 201) {
-        alert("Event added successfully!");
-        setEventName("");
-        setEventDate("");
-        setEventTime("");
-        setEventEndTime("");
-        setEventDescription("");
-        setEventLocation("");
-        setEventCategory("");
-        setEventOrganizer("");
-        setEventWeblink("");
-        setEventImage(null);
-        setEventAddress("");
-      } else {
-        alert("Failed to add event. Please try again.");
-      }
+      if (error) throw error;
+
+      alert("Event added successfully!");
+      setEventName("");
+      setEventDate("");
+      setEventTime("");
+      setEventEndTime("");
+      setEventDescription("");
+      setEventLocation("");
+      setEventCategory("");
+      setEventOrganizer("");
+      setEventWeblink("");
+      setEventImage(null);
+      setEventAddress("");
     } catch (error) {
       console.error("Error adding event:", error);
       alert("An error occurred while adding the event. Please try again.");
@@ -86,7 +92,7 @@ export default function EventAdder() {
           onChange={(e) => setEventName(e.target.value)}
           required
           className="input-field"
-          style={{borderColor: "var(--border-color)"}}
+          style={{ borderColor: "var(--border-color)" }}
         />
       </div>
       <div className="flex flex-col space-y-2">
@@ -97,7 +103,7 @@ export default function EventAdder() {
           onChange={(e) => setEventDate(e.target.value)}
           required
           className="input-field"
-            style={{borderColor: "var(--border-color)"}}
+          style={{ borderColor: "var(--border-color)" }}
         />
       </div>
       <div className="flex flex-col space-y-2">
@@ -108,7 +114,7 @@ export default function EventAdder() {
           onChange={(e) => setEventTime(e.target.value)}
           required
           className="input-field"
-          style={{borderColor: "var(--border-color)"}}
+          style={{ borderColor: "var(--border-color)" }}
         />
       </div>
       <div className="flex flex-col space-y-2">
@@ -118,7 +124,7 @@ export default function EventAdder() {
           value={eventEndTime}
           onChange={(e) => setEventEndTime(e.target.value)}
           className="input-field"
-          style={{borderColor: "var(--border-color)"}}
+          style={{ borderColor: "var(--border-color)" }}
         />
       </div>
       <div className="flex flex-col space-y-2">
@@ -127,7 +133,7 @@ export default function EventAdder() {
           value={eventDescription}
           onChange={(e) => setEventDescription(e.target.value)}
           className="input-field"
-          style={{borderColor: "var(--border-color)"}}
+          style={{ borderColor: "var(--border-color)" }}
         />
       </div>
       <div className="flex flex-col space-y-2">
@@ -137,7 +143,7 @@ export default function EventAdder() {
           value={eventLocation}
           onChange={(e) => setEventLocation(e.target.value)}
           className="input-field"
-          style={{borderColor: "var(--border-color)"}}
+          style={{ borderColor: "var(--border-color)" }}
         />
       </div>
       <div className="flex flex-col space-y-2">
@@ -147,7 +153,7 @@ export default function EventAdder() {
           value={eventAddress}
           onChange={(e) => setEventAddress(e.target.value)}
           className="input-field"
-          style={{borderColor: "var(--border-color)"}}
+          style={{ borderColor: "var(--border-color)" }}
         />
       </div>
       <div className="flex flex-col space-y-2">
@@ -157,7 +163,7 @@ export default function EventAdder() {
           value={eventCategory}
           onChange={(e) => setEventCategory(e.target.value)}
           className="input-field"
-          style={{borderColor: "var(--border-color)"}}
+          style={{ borderColor: "var(--border-color)" }}
         />
       </div>
       <div className="flex flex-col space-y-2">
@@ -167,7 +173,7 @@ export default function EventAdder() {
           value={eventOrganizer}
           onChange={(e) => setEventOrganizer(e.target.value)}
           className="input-field"
-          style={{borderColor: "var(--border-color)"}}
+          style={{ borderColor: "var(--border-color)" }}
         />
       </div>
       <div className="flex flex-col space-y-2">
@@ -177,7 +183,7 @@ export default function EventAdder() {
           value={eventWeblink}
           onChange={(e) => setEventWeblink(e.target.value)}
           className="input-field"
-          style={{borderColor: "var(--border-color)"}}
+          style={{ borderColor: "var(--border-color)" }}
         />
       </div>
       <div className="flex flex-col space-y-2">
@@ -189,7 +195,7 @@ export default function EventAdder() {
             setEventImage(e.target.files ? e.target.files[0] : null)
           }
           className="input-field"
-          style={{borderColor: "var(--border-color)"}}
+          style={{ borderColor: "var(--border-color)" }}
         />
       </div>
       <button type="submit" className="btn-primary w-full">
