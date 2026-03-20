@@ -8,12 +8,15 @@ import EventCard from "@/components/EventCard";
 import { Event } from "@/types/index";
 import { getEvents } from "@/lib/api";
 import { useEffect } from "react";
+import { useLocation } from "@/app/LocationProvider";
 
 export default function EventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const { city } = useLocation();
 
   useEffect(() => {
     const loadEvents = async () => {
@@ -61,11 +64,11 @@ export default function EventsPage() {
           <div className="flex items-center gap-3 mb-4">
             <Calendar className="w-8 h-8" style={{ backgroundColor: "var(--bg-tertiary)" }} />
             <h1 className="text-3xl md:text-4xl font-bold " style={{ color: "var(--text-primary)" }}>
-              Events in Brentwood
+              Events in {city}
             </h1>
           </div>
           <p className="mb-6" style={{ color: "var(--text-secondary)" }}>
-            Discover what's happening around Brentwood. Find events that match
+            Discover what's happening around {city}. Find events that match
             your interests.
           </p>
           <SearchBar onSearch={setSearchQuery} placeholder="Search events..." />

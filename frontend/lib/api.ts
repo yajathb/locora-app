@@ -1,86 +1,69 @@
 import { Event, Place, FilterOptions } from "@/types/index";
-import eventsData from "@/data/events.json";
 import placesData from "@/data/places.json";
+import axios from "axios";
 
 // Data abstraction layer - easy to swap JSON for Flask API later
 // Usage: Replace fetch calls with axios calls to http://localhost:5000/api/...
 
 export async function getEvents(filters?: FilterOptions): Promise<Event[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      let results = [...eventsData] as Event[];
+  try {
+    // Construct query parameters based on filters
+    const params: { [key: string]: string | undefined } = {
+      search: filters?.search,
+      category: filters?.category,
+      dateFrom: filters?.dateFrom,
+      dateTo: filters?.dateTo,
+    };
 
-      if (filters?.search) {
-        const search = filters.search.toLowerCase();
-        results = results.filter(
-          (e) =>
-            e.title.toLowerCase().includes(search) ||
-            e.description.toLowerCase().includes(search) ||
-            e.organizer.toLowerCase().includes(search),
-        );
-      }
+    // Make the API call with query parameters
+    const response = await axios.get("http://localhost:5000/api/events", {
+      params,
+    });
 
-      if (filters?.category) {
-        results = results.filter((e) => e.category === filters.category);
-      }
-
-      if (filters?.dateFrom) {
-        results = results.filter((e) => e.date >= filters.dateFrom!);
-      }
-
-      if (filters?.dateTo) {
-        results = results.filter((e) => e.date <= filters.dateTo!);
-      }
-
-      resolve(
-        results.sort(
-          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-        ),
-      );
-    }, 0);
-  });
+    // Return the events from the API response
+    return response.data as Event[];
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    throw error;
+  }
 }
 
 export async function getEventById(id: string): Promise<Event | null> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const event = (eventsData as Event[]).find((e) => e.id === id) || null;
-      resolve(event);
-    }, 0);
-  });
+  try {
+    const response = await axios.get(`http://localhost:5000/api/events/${id}`);
+    return response.data as Event | null;
+  } catch (error) {
+    console.error("Error fetching event by ID:", error);
+    throw error;
+  }
 }
 
 export async function getPlaces(filters?: FilterOptions): Promise<Place[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      let results = [...placesData] as Place[];
+  try {
+    const params: { [key: string]: string | undefined } = {
+      search: filters?.search,
+      category: filters?.category,
+    };
 
-      if (filters?.search) {
-        const search = filters.search.toLowerCase();
-        results = results.filter(
-          (p) =>
-            p.name.toLowerCase().includes(search) ||
-            p.description.toLowerCase().includes(search) ||
-            p.address.toLowerCase().includes(search),
-        );
-      }
+    const response = await axios.get("http://localhost:5000/api/places", {
+      params,
+    });
 
-      if (filters?.category) {
-        results = results.filter((p) => p.category === filters.category);
-      }
-
-      resolve(results.sort((a, b) => a.name.localeCompare(b.name)));
-    }, 0);
-  });
+    return response.data as Place[];
+  } catch (error) {
+    console.error("Error fetching places:", error);
+    throw error;
+  }
 }
 
 export async function getPlaceById(id: string): Promise<Place | null> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const place = (placesData as Place[]).find((p) => p.id === id) || null;
-      resolve(place);
-    }, 0);
-  });
+  try {
+    const response = await axios.get(`http://localhost:5000/api/places/${id}`);
+    return response.data as Place | null;
+  } catch (error) {
+    console.error("Error fetching place by ID:", error);
+    throw error;
+  }
 }
 
 export async function getFeaturedEvents(): Promise<Event[]> {

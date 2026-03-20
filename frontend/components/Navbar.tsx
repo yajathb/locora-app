@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { MapPin, Calendar, Users, Moon, Sun } from "lucide-react";
 import { useDarkMode } from "@/app/DarkModeProvider";
+import PlusDropdown from "@/components/PlusDropdown";
 
 interface NavbarProps {}
 
@@ -71,6 +72,9 @@ export default function Navbar({}: NavbarProps) {
               )}
             </button>
 
+            <div className="flex items-center gap-4">
+              <PlusDropdown />
+            </div>
             <div className="md:hidden">
               <button
                 style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
