@@ -70,7 +70,7 @@ export default function EventDetailPage() {
         <div style={{ backgroundColor: "var(--brand-paper)", borderColor: "var(--brand-rule)" }} className="rounded border overflow-hidden">
           {/* Image */}
           <div style={{ backgroundColor: "var(--brand-steel)" }} className="w-full h-80 overflow-hidden relative">
-            <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
+            <img src={event.image} alt={event.name} className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
           </div>
 
@@ -83,7 +83,7 @@ export default function EventDetailPage() {
                     {event.category}
                   </p>
                   <h1 style={{ fontFamily: "var(--font-cormorant)", fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 300, color: "var(--brand-ink)", lineHeight: 1.15 }}>
-                    {event.title}
+                    {event.name}
                   </h1>
                 </div>
                 <CategoryBadge category={event.category} />

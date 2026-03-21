@@ -65,7 +65,7 @@ export default function PlaceAdder() {
 
   const inputStyle: React.CSSProperties = {
     borderColor: "var(--brand-rule)",
-    backgroundColor: "#ffffff",
+    backgroundColor: "var(--brand-paper)",
     color: "var(--brand-ink)",
     fontFamily: "var(--font-dm-sans)",
     fontSize: "13px",

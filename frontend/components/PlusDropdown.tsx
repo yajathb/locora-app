@@ -40,7 +40,7 @@ function PlusDropdown() {
       {open && (
         <div
           style={{
-            backgroundColor: "#ffffff",
+            backgroundColor: "var(--brand-paper)",
             borderColor: "var(--brand-rule)",
             boxShadow: "0 8px 24px rgba(13,35,64,0.12)",
             minWidth: "160px",

@@ -29,7 +29,7 @@ export default function EventCard({ event, featured }: EventCardProps) {
           >
             <img
               src={event.image}
-              alt={event.title}
+              alt={event.name}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/0 to-transparent" />
@@ -88,7 +88,7 @@ export default function EventCard({ event, featured }: EventCardProps) {
               }}
               className="line-clamp-2"
             >
-              {event.title}
+              {event.name}
             </h3>
 
             <p

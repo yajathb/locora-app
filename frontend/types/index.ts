@@ -1,6 +1,6 @@
 export interface Event {
   id: string;
-  title: string;
+  name: string;
   description: string;
   date: string; // ISO 8601 format
   time: string; // HH:MM format

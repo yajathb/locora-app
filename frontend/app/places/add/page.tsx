@@ -11,7 +11,7 @@ export default function AddPlacePage() {
         <h1 style={{ fontFamily: "var(--font-cormorant)", fontSize: "36px", fontWeight: 300, color: "var(--brand-ink)", marginBottom: "24px", lineHeight: 1.1 }}>
           Add New Place
         </h1>
-        <div style={{ backgroundColor: "#ffffff", borderColor: "var(--brand-rule)" }} className="rounded border p-8">
+        <div style={{ backgroundColor: "var(--brand-paper)", borderColor: "var(--brand-rule)" }} className="rounded border p-8">
           <PlaceAdder />
         </div>
       </div>

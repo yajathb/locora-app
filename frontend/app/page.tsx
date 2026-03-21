@@ -134,8 +134,8 @@ export default function Home() {
               <Link
                 href="/places"
                 style={{
-                  backgroundColor: "var(--brand-fog)",
-                  color: "var(--brand-ink)",
+                  backgroundColor: "#151E28",
+                  color: "#FFFFFF",
                   fontFamily: "var(--font-dm-sans)",
                   fontSize: "12px",
                   fontWeight: 500,
@@ -143,7 +143,7 @@ export default function Home() {
                   textTransform: "uppercase",
                   padding: "14px 28px",
                   borderRadius: "4px",
-                  border: "0.5px solid var(--brand-fog)",
+                  border: "0.5px solid #151E28",
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "8px",

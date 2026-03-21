@@ -280,10 +280,10 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-6">
             {[
               { name: "Aarav Bhattacharya", role: "Founder", bio: "There's just no good way to find out what's going on in Brentwood. I want to know where the cool events are, which restaurants are actually worth going to, and what hidden gems I might be missing. So I started Locora to solve that problem as a guide for people who love this city as much as I do." },
-              { name: "Nahar", role: "Co-Founder", bio: "I love creating tools that help people discover and engage with their communities. In my role as Co-Founder, I work to connect Locora with local businesses and organizations to ensure our guide is comprehensive and inclusive." },
+              { name: "Nahar Grewal", role: "Co-Founder", bio: "I love creating tools that help people discover and engage with their communities. In my role as Co-Founder, I work to connect Locora with local businesses and organizations to ensure our guide is comprehensive and inclusive." },
               { name: "Aashutosh Vyas", role: "Lead Programmer", bio: "I'm passionate about building tools that help people discover and engage with their communities. In my role as Lead Programmer, I work to ensure that Locora delivers a seamless and enjoyable experience for all users." },
-              { name: "Yajath Barve", role: "Programmer", bio: "I'm passionate about building tools that help people discover and engage with their communities. In my role as Programmer, I work to ensure that Locora delivers a seamless and enjoyable experience for all users." },
-              { name: "Satvika Srikireddy", role: "Designer", bio: "I believe that good design can make information more accessible and enjoyable to interact with. As Locora's Designer, I focus on crafting a visually appealing and user-friendly interface that reflects the unique character of Brentwood." },
+              { name: "Yajath Barve", role: "Lead Programmer", bio: "I'm passionate about building tools that help people discover and engage with their communities. In my role as Lead Programmer, I work to ensure that Locora delivers a seamless and enjoyable experience for all users." },
+              { name: "Satvika Srikireddy", role: "Social Media Manager", bio: "I believe that good design can make information more accessible and enjoyable to interact with. As Locora's Social Media Manager, I focus on crafting a visually appealing and user-friendly interface that reflects the unique character of Brentwood." },
             ].map((person, i) => (
               <div key={i} style={{
                 backgroundColor: "var(--brand-fog)",
