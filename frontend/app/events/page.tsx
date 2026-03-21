@@ -28,7 +28,7 @@ export default function EventsPage() {
     return events.filter((event) => {
       const matchesSearch =
         !searchQuery ||
-        event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         event.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         event.organizer.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory =
