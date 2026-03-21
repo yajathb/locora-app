@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Event } from "@/types/index";
-import { MapPin, Clock, ChevronRight, Calendar, Clock10 } from "lucide-react";
+import { MapPin, Clock, ChevronRight, Calendar } from "lucide-react";
 import CategoryBadge from "./CategoryBadge";
 import { formatDate, formatTime } from "@/lib/api";
 
@@ -14,29 +14,46 @@ interface EventCardProps {
 export default function EventCard({ event, featured }: EventCardProps) {
   return (
     <Link href={`/events/${event.id}`}>
-      <div
-        className={`group cursor-pointer rounded-xl overflow-hidden transition-all duration-300 animate-fade-in-up hover-lift ${
-          featured ? "md:col-span-2 md:row-span-2" : ""
-        }`}
-      >
+      <div className={`group cursor-pointer animate-fade-in-up hover-lift ${featured ? "md:col-span-2 md:row-span-2" : ""}`}>
         <div
           style={{
-            backgroundColor: "var(--bg-secondary)",
-            borderColor: "var(--border-color)",
+            backgroundColor: "var(--brand-sand)",
+            borderColor: "var(--brand-rule)",
           }}
-          className="rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-full flex flex-col border-0"
+          className="rounded overflow-hidden h-full flex flex-col border hover:shadow-md transition-shadow duration-300"
         >
           {/* Image */}
           <div
-            style={{ backgroundColor: "var(--bg-tertiary)" }}
+            style={{ backgroundColor: "var(--brand-steel)"}}
             className="relative overflow-hidden h-48"
           >
             <img
               src={event.image}
               alt={event.title}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
             />
-            <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/0 to-transparent" />
+            {/* "Locora Pick" tag — bottom-left, per brandkit card anatomy */}
+            {event.featured && (
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "12px",
+                  left: "12px",
+                  backgroundColor: "rgba(13,35,64,0.78)",
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "8px",
+                  fontWeight: 500,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "#ffffff",
+                  padding: "4px 10px",
+                  borderRadius: "3px",
+                }}
+              >
+                Locora Pick
+              </div>
+            )}
             <div className="absolute top-3 right-3">
               <CategoryBadge category={event.category} />
             </div>
@@ -44,49 +61,86 @@ export default function EventCard({ event, featured }: EventCardProps) {
 
           {/* Content */}
           <div className="flex-1 p-4 flex flex-col">
+            {/* Overline — category + location style */}
+            <p
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "9px",
+                fontWeight: 500,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "var(--brand-sky)",
+                marginBottom: "6px",
+              }}
+            >
+              {event.category}
+            </p>
+
+            {/* Card name — Cormorant Garamond, not bold */}
             <h3
-              className="font-bold text-lg transition-colors duration-300 line-clamp-2 mb-2"
-              style={{ color: "var(--text-primary)" }}
->
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                fontSize: "20px",
+                fontWeight: 400,
+                color: "var(--brand-ink)",
+                lineHeight: 1.2,
+                marginBottom: "6px",
+              }}
+              className="line-clamp-2"
+            >
               {event.title}
             </h3>
 
             <p
-              style={{ color: "var(--text-secondary)" }}
-              className="text-sm line-clamp-2 mb-3"
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "11px",
+                color: "var(--brand-slate)",
+                lineHeight: 1.65,
+                marginBottom: "12px",
+              }}
+              className="line-clamp-2"
             >
               {event.description}
             </p>
 
-            {/* Date & Time */}
+            {/* Meta */}
             <div
-              style={{ color: "var(--text-secondary)" }}
-              className="space-y-2 text-sm mb-3"
+              style={{ fontFamily: "var(--font-dm-sans)", fontSize: "10px", color: "var(--brand-slate)" }}
+              className="space-y-1.5 mb-3"
             >
               <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-blue-600 shrink-0" />
+                <Calendar className="w-3.5 h-3.5 shrink-0" style={{ color: "var(--brand-sky)" }} />
                 <span>{formatDate(event.date)}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-blue-600 shrink-0" />
+                <Clock className="w-3.5 h-3.5 shrink-0" style={{ color: "var(--brand-sky)" }} />
                 <span>{formatTime(event.time)}</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-blue-600 shrink-0" />
+                <MapPin className="w-3.5 h-3.5 shrink-0" style={{ color: "var(--brand-sky)" }} />
                 <span className="truncate">{event.location}</span>
               </div>
             </div>
 
             {/* Footer */}
             <div
-              style={{
-                borderColor: "var(--border-color)",
-                color: "var(--text-tertiary)",
-              }}
+              style={{ borderColor: "var(--brand-rule)", color: "var(--brand-slate)" }}
               className="mt-auto pt-3 border-t flex items-center justify-between"
             >
-              <span className="text-xs">{event.organizer}</span>
-              <ChevronRight className="w-4 h-4 group-hover:text-blue-600 transition-all duration-200 translate-x-0 group-hover:translate-x-1" />
+              <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "9.5px" }}>{event.organizer}</span>
+              <span
+                style={{
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "8.5px",
+                  fontWeight: 500,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "var(--brand-sky)",
+                }}
+              >
+                Explore →
+              </span>
             </div>
           </div>
         </div>

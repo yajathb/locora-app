@@ -31,10 +31,7 @@ export default function PlacesPage() {
         place.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         place.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         place.address.toLowerCase().includes(searchQuery.toLowerCase());
-
-      const matchesCategory =
-        !selectedCategory || place.category === selectedCategory;
-
+      const matchesCategory = !selectedCategory || place.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
   }, [places, searchQuery, selectedCategory]);
@@ -42,28 +39,51 @@ export default function PlacesPage() {
   const categories = Array.from(new Set(places.map((p) => p.category)));
 
   return (
-    <main className="min-h-screen" style={{ backgroundColor: "var(--bg-primary)" }}>
-      {/* Header */}
-      <section className="bg-white border-b" style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <div className="flex items-center gap-3 mb-4">
-            <MapPin className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-            <h1 className="text-3xl md:text-4xl font-bold" style={{ color: "var(--text-primary)" }}>
-              Places in Brentwood
-            </h1>
-          </div>
-          <p className="mb-6" style={{ color: "var(--text-secondary)" }}>
-            Explore the best spots, cafes, restaurants, and attractions around
-            Brentwood.
+    <main style={{ backgroundColor: "var(--bg-paper)" }}>
+      <section style={{ backgroundColor: "var(--brand-steel)" }} className="py-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p
+            style={{
+              fontFamily: "var(--font-dm-sans)",
+              fontSize: "9px",
+              fontWeight: 500,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "var(--brand-mist)",
+              marginBottom: "10px",
+            }}
+          >
+            Brentwood, California
+          </p>
+          <h1
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontSize: "clamp(36px, 5vw, 56px)",
+              fontWeight: 300,
+              color: "#ffffff",
+              lineHeight: 1.1,
+              marginBottom: "8px",
+            }}
+          >
+            Places in Brentwood
+          </h1>
+          <p
+            style={{
+              fontFamily: "var(--font-dm-sans)",
+              fontSize: "13px",
+              fontWeight: 300,
+              color: "var(--brand-mist)",
+              marginBottom: "24px",
+            }}
+          >
+            Curated restaurants, trails, events, and local businesses.
           </p>
           <SearchBar onSearch={setSearchQuery} placeholder="Search places..." />
         </div>
       </section>
 
-      {/* Content */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {/* Sidebar */}
           <div className="md:col-span-1">
             <FilterSidebar
               categories={categories}
@@ -72,16 +92,11 @@ export default function PlacesPage() {
             />
           </div>
 
-          {/* Places Grid */}
           <div className="md:col-span-3">
             {loading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[...Array(6)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="rounded-xl h-64 animate-pulse"
-                    style={{ backgroundColor: "var(--bg-tertiary)" }}
-                  />
+                  <div key={i} style={{ backgroundColor: "var(--brand-fog)" }} className="rounded h-64 animate-pulse" />
                 ))}
               </div>
             ) : filteredPlaces.length > 0 ? (
@@ -91,21 +106,39 @@ export default function PlacesPage() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12 rounded-lg border" style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--border-color)" }}>
-                <MapPin className="w-12 h-12 mx-auto mb-3" style={{backgroundColor: "var(--text-secondary)"}} />
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-1">
+              <div
+                className="text-center py-16 rounded border"
+                style={{ backgroundColor: "var(--brand-fog)", borderColor: "var(--brand-rule)" }}
+              >
+                <MapPin className="w-10 h-10 mx-auto mb-4" style={{ color: "var(--brand-mist)" }} />
+                <h3
+                  style={{
+                    fontFamily: "var(--font-cormorant)",
+                    fontSize: "22px",
+                    fontWeight: 300,
+                    color: "var(--brand-ink)",
+                    marginBottom: "6px",
+                  }}
+                >
                   No places found
                 </h3>
-                <p style={{ color: "var(--text-secondary)" }} className="text-sm">
-                  Try adjusting your filters or search query to find what you're
-                  looking for.
+                <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "12px", color: "var(--brand-slate)" }}>
+                  Try adjusting your filters or search query.
                 </p>
               </div>
             )}
             {filteredPlaces.length > 0 && (
-              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                Showing {filteredPlaces.length} place
-                {filteredPlaces.length !== 1 ? "s" : ""}
+              <p
+                style={{
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "9px",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "var(--brand-slate)",
+                  marginTop: "16px",
+                }}
+              >
+                Showing {filteredPlaces.length} place{filteredPlaces.length !== 1 ? "s" : ""}
               </p>
             )}
           </div>

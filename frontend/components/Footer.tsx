@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, Phone, ExternalLink } from "lucide-react";
-import { useLocation } from "@/app/LocationProvider";
+import { useLocation } from "@/components/LocationProvider";
 
 export default function Footer() {
   const { city } = useLocation();
@@ -10,111 +9,150 @@ export default function Footer() {
   return (
     <footer
       style={{
-        backgroundColor: "var(--bg-secondary)",
-        color: "var(--text-secondary)",
+        backgroundColor: "var(--brand-navy)",
+        borderColor: "rgba(59,120,176,0.3)",
       }}
-      className="mt-16 transition-colors duration-300 animate-fade-in"
+      className="mt-16 border-t transition-colors duration-300"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-8">
+          {/* Wordmark block */}
           <div>
-            <h3
-              style={{ color: "var(--text-primary)" }}
-              className="font-bold text-lg mb-4"
+            <span
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                fontSize: "32px",
+                fontWeight: 300,
+                letterSpacing: "0.03em",
+                color: "#ffffff",
+                lineHeight: 1,
+                display: "block",
+                marginBottom: "6px",
+              }}
             >
               Locora
-            </h3>
-            <p className="text-sm">
-              Your window into what's happening in {city} right now. Discover
-              events, places, and opportunities.
-            </p>
-          </div>
-          <div>
-            <h4
-              style={{ color: "var(--text-primary)" }}
-              className="font-semibold mb-4"
+            </span>
+            <span
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "9px",
+                fontWeight: 500,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "var(--brand-slate)",
+              }}
             >
-              Explore
-            </h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  href="/events"
-                  className="hover:text-blue-600 transition-colors duration-200"
-                >
-                  Events
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/places"
-                  className="hover:text-blue-600 transition-colors duration-200"
-                >
-                  Places
-                </Link>
-              </li>
-            </ul>
+              Brentwood, California
+            </span>
           </div>
-          <div>
-            <h4
-              style={{ color: "var(--text-primary)" }}
-              className="font-semibold mb-4"
-            >
-              Connect
-            </h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-blue-600 transition-colors duration-200"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-blue-600 transition-colors duration-200"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4
-              style={{ color: "var(--text-primary)" }}
-              className="font-semibold mb-4"
-            >
-              Follow
-            </h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-blue-600 transition-colors duration-200"
-                >
-                  Twitter
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-blue-600 transition-colors duration-200"
-                >
-                  Instagram
-                </a>
-              </li>
-            </ul>
+
+          {/* Nav links */}
+          <div className="flex gap-10">
+            <div>
+              <p
+                style={{
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "9px",
+                  fontWeight: 500,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "var(--brand-mist)",
+                  marginBottom: "12px",
+                }}
+              >
+                Explore
+              </p>
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    href="/events"
+                    style={{
+                      fontFamily: "var(--font-dm-sans)",
+                      fontSize: "12px",
+                      color: "var(--brand-slate)",
+                    }}
+                    className="hover:text-white transition-colors duration-200"
+                  >
+                    Events
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/places"
+                    style={{
+                      fontFamily: "var(--font-dm-sans)",
+                      fontSize: "12px",
+                      color: "var(--brand-slate)",
+                    }}
+                    className="hover:text-white transition-colors duration-200"
+                  >
+                    Places
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <p
+                style={{
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "9px",
+                  fontWeight: 500,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "var(--brand-mist)",
+                  marginBottom: "12px",
+                }}
+              >
+                Connect
+              </p>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="/about"
+                    style={{
+                      fontFamily: "var(--font-dm-sans)",
+                      fontSize: "12px",
+                      color: "var(--brand-slate)",
+                    }}
+                    className="hover:text-white transition-colors duration-200"
+                  >
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/contact"
+                    style={{
+                      fontFamily: "var(--font-dm-sans)",
+                      fontSize: "12px",
+                      color: "var(--brand-slate)",
+                    }}
+                    className="hover:text-white transition-colors duration-200"
+                  >
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
+        {/* Rule + copyright */}
         <div
-          style={{ borderColor: "var(--border-color)" }}
-          className="border-t pt-8"
+          style={{ borderColor: "rgba(59,120,176,0.3)" }}
+          className="border-t pt-6"
         >
-          <p className="text-center text-sm">
-            © 2026 Locora. Celebrating {city}'s vibrant community.
+          <p
+            style={{
+              fontFamily: "var(--font-dm-sans)",
+              fontSize: "9px",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "var(--brand-slate)",
+              textAlign: "center",
+            }}
+          >
+            © 2026 Locora · Brentwood, California
           </p>
         </div>
       </div>

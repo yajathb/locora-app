@@ -87,7 +87,7 @@ export async function getFeaturedEvents(): Promise<Event[]> {
     const { data, error } = await supabase
       .from("events")
       .select("*")
-      .eq("featured", true)
+      .eq("featured", 1)
       .limit(6);
     if (error) throw error;
     return data as Event[];
@@ -102,7 +102,7 @@ export async function getFeaturedPlaces(): Promise<Place[]> {
     const { data, error } = await supabase
       .from("places")
       .select("*")
-      .eq("featured", true)
+      .eq("featured", 1)
       .limit(6);
     if (error) throw error;
     return data as Place[];

@@ -18,26 +18,59 @@ function PlusDropdown() {
     <div ref={ref} className="relative inline-block">
       <button
         onClick={() => setOpen(prev => !prev)}
-        className="text-xl font-light flex items-center justify-center transition-all duration-200 hover-scale shadow-sm"
-        style={{backgroundColor: "var(--bg-secondary)", color: "var(--text-primary)"}}
+        style={{
+          backgroundColor: "rgba(255,255,255,0.1)",
+          color: "var(--brand-mist)",
+          fontFamily: "var(--font-dm-sans)",
+          fontSize: "20px",
+          fontWeight: 300,
+          width: "36px",
+          height: "36px",
+          borderRadius: "4px",
+          border: "0.5px solid rgba(168,196,222,0.3)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        className="hover:bg-white/20 transition"
       >
         +
       </button>
 
       {open && (
         <div
-          className="absolute top-[110%] left-0 min-w-37.5 rounded-lg shadow-md z-100 animate-scale-in card border"
-          style={{ borderColor: "var(--border-color)" }}
+          style={{
+            backgroundColor: "#ffffff",
+            borderColor: "var(--brand-rule)",
+            boxShadow: "0 8px 24px rgba(13,35,64,0.12)",
+            minWidth: "160px",
+          }}
+          className="absolute top-[110%] left-0 rounded border z-50 overflow-hidden"
         >
-        <a
+          <a
             href="/events/add"
-            className="block px-4 py-2.5 text-sm nav-link rounded-t-lg hover:bg-(--bg-tertiary) transition-colors duration-200"
+            style={{
+              fontFamily: "var(--font-dm-sans)",
+              fontSize: "12px",
+              color: "var(--brand-ink)",
+              display: "block",
+              padding: "10px 16px",
+              borderBottom: "0.5px solid var(--brand-rule)",
+            }}
+            className="hover:bg-fog transition-colors duration-150"
           >
             Add an Event
           </a>
           <a
             href="/places/add"
-            className="block px-4 py-2.5 text-sm nav-link rounded-b-lg hover:bg-(--bg-tertiary) transition-colors duration-200"
+            style={{
+              fontFamily: "var(--font-dm-sans)",
+              fontSize: "12px",
+              color: "var(--brand-ink)",
+              display: "block",
+              padding: "10px 16px",
+            }}
+            className="hover:bg-fog transition-colors duration-150"
           >
             Add a Place
           </a>

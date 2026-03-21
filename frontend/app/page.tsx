@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Calendar, MapPin, ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
 import EventCard from "@/components/EventCard";
 import PlaceCard from "@/components/PlaceCard";
 import { Event, Place } from "@/types/index";
 import { getFeaturedEvents, getFeaturedPlaces } from "@/lib/api";
-import { useLocation } from "@/app/LocationProvider";
+import { useLocation } from "@/components/LocationProvider";
 
 export default function Home() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -27,116 +27,181 @@ export default function Home() {
       setPlaces(featuredPlaces);
       setLoading(false);
     };
-
     loadFeatured();
   }, []);
 
   return (
     <main
-      style={{
-        backgroundColor: "var(--bg-primary)",
-        color: "var(--text-primary)",
-      }}
+      style={{ backgroundColor: "var(--bg-paper)", color: "var(--brand-ink)" }}
     >
-      {/* Hero Section */}
+      {/* Hero — Steel bg, editorial overlay per brandkit mockup */}
       <section
-        style={{
-          backgroundColor: "var(--bg-secondary)",
-          borderColor: "var(--border-color)",
-        }}
-        className="py-16 md:py-24 border-b"
+        style={{ backgroundColor: "var(--brand-steel)" }}
+        className="relative py-24 md:py-32 overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
+        {/* Subtle overlay wash */}
+        <div
+          style={{ backgroundColor: "rgba(13,35,64,0.55)" }}
+          className="absolute inset-0"
+        />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            {/* Overline — DM Sans, Sky, tracked uppercase */}
+            <p
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "10px",
+                fontWeight: 500,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "var(--brand-mist)",
+                marginBottom: "16px",
+              }}
+            >
+              Brentwood, California
+            </p>
+
+            {/* Display heading — Cormorant Garamond Light */}
+            <h1
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                fontSize: "clamp(44px, 6vw, 72px)",
+                fontWeight: 300,
+                color: "#ffffff",
+                lineHeight: 1.05,
+                letterSpacing: "-0.01em",
+                marginBottom: "16px",
+              }}
+            >
+              The definitive guide
+              <br />
+              to your city.
+            </h1>
+
+            {/* Sky rule line */}
             <div
               style={{
-                backgroundColor: "var(--bg-primary)",
-                color: "var(--text-primary)",
+                width: "36px",
+                height: "0.5px",
+                backgroundColor: "var(--brand-sky)",
+                marginBottom: "20px",
               }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 animate-fade-in"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span className="text-sm font-medium">
-                Welcome to {city}'s Discovery Hub
-              </span>
-            </div>
-            <h1
-              style={{ color: "var(--text-primary)" }}
-              className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in-up animate-delay-1"
-            >
-              Discover What's Happening in{" "}
-              <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                {city}
-              </span>
-            </h1>
-            <p
-              style={{ color: "var(--text-secondary)" }}
-              className="text-xl max-w-2xl mx-auto animate-fade-in-up animate-delay-2"
-            >
-              Your window into events, places, and opportunities happening right
-              now. Stay connected to your community.
-            </p>
-          </div>
-
-          {/* Search */}
-          <div className="mb-8 animate-fade-in-up animate-delay-3">
-            <SearchBar
-              onSearch={setSearchQuery}
-              placeholder="Search events, places, opportunities..."
             />
-          </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/events"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-xl animate-fade-in-up animate-delay-4 hover-scale"
-              style={{ backgroundColor: "var(--bg-primary)", color: "var(--text-primary)" }}
-            >
-              <Calendar className="w-5 h-5" />
-              Explore Events
-            </Link>
-            <Link
-              href="/places"
+            <p
               style={{
-                backgroundColor: "var(--bg-tertiary)",
-                color: "var(--text-primary)",
-                borderColor: "var(--border-color)",
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "15px",
+                fontWeight: 300,
+                color: "var(--brand-mist)",
+                lineHeight: 1.7,
+                marginBottom: "32px",
+                maxWidth: "480px",
               }}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold border-2 hover:opacity-80 transition animate-fade-in-up animate-delay-5 hover-scale"
             >
-              <MapPin className="w-5 h-5" />
-              Discover Places
-            </Link>
+              Curated events, places, and community moments in Brentwood. Discover
+              with intention, not algorithms.
+            </p>
+
+            {/* Search */}
+            <div className="mb-8 max-w-lg">
+              <SearchBar
+                onSearch={setSearchQuery}
+                placeholder="Search events, places, opportunities..."
+              />
+            </div>
+
+            {/* CTAs — Navy primary, Fog secondary per brandkit detail page */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link
+                href="/events"
+                style={{
+                  backgroundColor: "var(--brand-navy)",
+                  color: "#ffffff",
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  padding: "14px 28px",
+                  borderRadius: "4px",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+                className="hover:opacity-90 transition"
+              >
+                Explore Events
+              </Link>
+              <Link
+                href="/places"
+                style={{
+                  backgroundColor: "var(--brand-fog)",
+                  color: "var(--brand-ink)",
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  padding: "14px 28px",
+                  borderRadius: "4px",
+                  border: "0.5px solid var(--brand-fog)",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+                className="hover:opacity-80 transition"
+              >
+                Discover Places
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Featured Events */}
-      <section
-        style={{ backgroundColor: "var(--bg-primary)" }}
-        className="py-16"
-      >
+      <section style={{ backgroundColor: "var(--bg-paper)" }} className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
-            <div className="animate-fade-in-up">
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p
+                style={{
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "9px",
+                  fontWeight: 500,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "var(--brand-sky)",
+                  marginBottom: "8px",
+                }}
+              >
+                Curated this week
+              </p>
               <h2
-                style={{ color: "var(--text-primary)" }}
-                className="text-3xl font-bold"
+                style={{
+                  fontFamily: "var(--font-cormorant)",
+                  fontSize: "36px",
+                  fontWeight: 300,
+                  color: "var(--brand-ink)",
+                  lineHeight: 1.1,
+                }}
               >
                 Featured Events
               </h2>
-              <p style={{ color: "var(--text-secondary)" }}>
-                Don't miss what's happening around {city}
-              </p>
             </div>
             <Link
               href="/events"
-              style={{ color: "var(--text-primary)" }}
-              className="hidden md:flex items-center gap-2 hover:opacity-80 font-semibold transition animate-fade-in-up"
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "11px",
+                fontWeight: 500,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--brand-sky)",
+              }}
+              className="hidden md:flex items-center gap-2 hover:opacity-80 transition"
             >
-              View All
-              <ArrowRight className="w-5 h-5" />
+              View All <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
@@ -145,8 +210,8 @@ export default function Home() {
               {[...Array(6)].map((_, i) => (
                 <div
                   key={i}
-                  style={{ backgroundColor: "var(--bg-secondary)" }}
-                  className="rounded-xl h-96 animate-pulse"
+                  style={{ backgroundColor: "var(--brand-fog)" }}
+                  className="rounded h-80 animate-pulse"
                 />
               ))}
             </div>
@@ -165,44 +230,71 @@ export default function Home() {
           <div className="mt-8 text-center md:hidden">
             <Link
               href="/events"
-              style={{ color: "var(--text-primary)" }}
-              className="inline-flex items-center gap-2 hover:opacity-80 font-semibold transition"
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "11px",
+                fontWeight: 500,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--brand-sky)",
+              }}
+              className="inline-flex items-center gap-2 hover:opacity-80 transition"
             >
-              View All Events
-              <ArrowRight className="w-5 h-5" />
+              View All Events <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Featured Places */}
+      {/* Featured Places — Sand bg for alternating section rhythm */}
       <section
         style={{
-          backgroundColor: "var(--bg-primary)",
-          borderColor: "var(--border-color)",
+          backgroundColor: "var(--brand-sand)",
+          borderColor: "var(--brand-rule)",
         }}
         className="py-16 border-t"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
-            <div className="animate-fade-in-up">
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p
+                style={{
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "9px",
+                  fontWeight: 500,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "var(--brand-sky)",
+                  marginBottom: "8px",
+                }}
+              >
+                Explore Brentwood
+              </p>
               <h2
-                style={{ color: "var(--text-primary)" }}
-                className="text-3xl font-bold"
+                style={{
+                  fontFamily: "var(--font-cormorant)",
+                  fontSize: "36px",
+                  fontWeight: 300,
+                  color: "var(--brand-ink)",
+                  lineHeight: 1.1,
+                }}
               >
                 Popular Places
               </h2>
-              <p style={{ color: "var(--text-secondary)" }}>
-                Explore the best spots in {city}
-              </p>
             </div>
             <Link
               href="/places"
-              style={{ color: "var(--text-primary)" }}
-              className="hidden md:flex items-center gap-2 hover:opacity-80 font-semibold transition animate-fade-in-up"
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "11px",
+                fontWeight: 500,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--brand-sky)",
+              }}
+              className="hidden md:flex items-center gap-2 hover:opacity-80 transition"
             >
-              View All
-              <ArrowRight className="w-5 h-5" />
+              View All <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
@@ -211,8 +303,8 @@ export default function Home() {
               {[...Array(6)].map((_, i) => (
                 <div
                   key={i}
-                  style={{ backgroundColor: "var(--bg-secondary)" }}
-                  className="rounded-xl h-64 animate-pulse"
+                  style={{ backgroundColor: "var(--brand-fog)" }}
+                  className="rounded h-64 animate-pulse"
                 />
               ))}
             </div>
@@ -227,49 +319,83 @@ export default function Home() {
           <div className="mt-8 text-center md:hidden">
             <Link
               href="/places"
-              style={{ color: "var(--text-primary)" }}
-              className="inline-flex items-center gap-2 hover:opacity-80 font-semibold transition"
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "11px",
+                fontWeight: 500,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--brand-sky)",
+              }}
+              className="inline-flex items-center gap-2 hover:opacity-80 transition"
             >
-              View All Places
-              <ArrowRight className="w-5 h-5" />
+              View All Places <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
+      {/* About — Paper bg, editorial pull-quote style */}
       <section
         style={{
-          backgroundColor: "var(--bg-primary)",
-          borderColor: "var(--border-color)",
+          backgroundColor: "var(--bg-paper)",
+          borderColor: "var(--brand-rule)",
         }}
         className="py-16 border-t"
       >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2
-            style={{ color: "var(--text-primary)" }}
-            className="text-3xl font-bold mb-4 animate-fade-in-up"
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p
+            style={{
+              fontFamily: "var(--font-dm-sans)",
+              fontSize: "9px",
+              fontWeight: 500,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "var(--brand-sky)",
+              marginBottom: "12px",
+            }}
           >
             About Locora
+          </p>
+          <h2
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontSize: "32px",
+              fontWeight: 300,
+              color: "var(--brand-ink)",
+              marginBottom: "20px",
+              lineHeight: 1.2,
+            }}
+          >
+            Locora exists to make Brentwood legible
+            <br />
+            to the people who live in it.
           </h2>
           <p
-            style={{ color: "var(--text-secondary)" }}
-            className="text-lg mb-6 animate-fade-in-up animate-delay-1"
+            style={{
+              fontFamily: "var(--font-dm-sans)",
+              fontSize: "14px",
+              fontWeight: 300,
+              color: "var(--brand-slate)",
+              lineHeight: 1.75,
+              marginBottom: "12px",
+            }}
           >
-            Information about {city} shouldn't be scattered across outdated
-            websites and disconnected pages. Locora brings everything
-            together—events, places, and opportunities—into one clean,
-            easy-to-use platform that helps you stay engaged with your
-            community.
+            Information about Brentwood shouldn't be scattered across outdated
+            websites and disconnected pages. Locora brings everything together —
+            events, places, and opportunities — into one curated platform.
           </p>
           <p
-            style={{ color: "var(--text-secondary)" }}
-            className="animate-fade-in-up animate-delay-2"
+            style={{
+              fontFamily: "var(--font-cormorant)",
+              fontSize: "18px",
+              fontStyle: "italic",
+              fontWeight: 300,
+              color: "var(--brand-slate)",
+              lineHeight: 1.6,
+            }}
           >
-            Whether you're looking for the next big event, discovering a new
-            favorite spot, or finding ways to get involved, Locora is your
-            window into what's happening in {city}
-            right now.
+            "One neighborhood, one standout place, one season at a time."
           </p>
         </div>
       </section>

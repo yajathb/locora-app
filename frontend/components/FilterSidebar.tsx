@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Filter, X, ChevronDown } from "lucide-react";
+import { Filter, ChevronDown } from "lucide-react";
 import { Category } from "@/types/index";
 
 interface FilterSidebarProps {
@@ -12,14 +12,8 @@ interface FilterSidebarProps {
 }
 
 const categories: Category[] = [
-  "Music",
-  "Sports",
-  "Arts",
-  "Community",
-  "Food",
-  "Education",
-  "Family",
-  "Outdoor",
+  "Music", "Sports", "Arts", "Community",
+  "Food", "Education", "Family", "Outdoor",
 ];
 
 export default function FilterSidebar({
@@ -32,110 +26,102 @@ export default function FilterSidebar({
   return (
     <>
       {/* Mobile Toggle */}
-      <div className="md:hidden mb-4 animate-fade-in-up">
+      <div className="md:hidden mb-4">
         <button
           onClick={() => setIsOpen(!isOpen)}
           style={{
-            backgroundColor: "var(--bg-secondary)",
-            borderColor: "var(--border-color)",
-            color: "var(--text-primary)",
+            backgroundColor: "var(--brand-paper)",
+            borderColor: "var(--brand-rule)",
+            color: "var(--brand-ink)",
+            fontFamily: "var(--font-dm-sans)",
+            fontSize: "11px",
+            fontWeight: 500,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
           }}
-          className="w-full flex items-center justify-between px-4 py-3 border rounded-lg transition"
+          className="w-full flex items-center justify-between px-4 py-3 border rounded transition"
         >
           <div className="flex items-center gap-2">
-            <Filter className="w-5 h-5" />
-            <span className="font-medium">Filters</span>
+            <Filter className="w-4 h-4" />
+            <span>Filters</span>
           </div>
-          <ChevronDown
-            className={`w-5 h-5 transition transform ${isOpen ? "rotate-180" : ""}`}
-          />
+          <ChevronDown className={`w-4 h-4 transition transform ${isOpen ? "rotate-180" : ""}`} />
         </button>
       </div>
 
       {/* Sidebar */}
       <div
         style={{
-          backgroundColor: "var(--bg-secondary)",
-          borderColor: "var(--border-color)",
+          backgroundColor: "var(--brand-paper)",
+          borderColor: "var(--brand-rule)",
         }}
-        className={`${
-          isOpen ? "block" : "hidden"
-        } md:block rounded-lg border p-6 animate-fade-in-up`}
+        className={`${isOpen ? "block" : "hidden"} md:block rounded border p-6`}
       >
         <h2
-          style={{ color: "var(--text-primary)" }}
-          className="font-bold text-lg mb-4 flex items-center gap-2"
+          style={{
+            fontFamily: "var(--font-dm-sans)",
+            fontSize: "9px",
+            fontWeight: 500,
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color: "var(--brand-sky)",
+            marginBottom: "16px",
+          }}
         >
-          <Filter className="w-5 h-5" />
-          Filters
+          Filter by Category
         </h2>
 
-        {/* Categories */}
-        <div className="mb-6">
-          <h3
-            style={{ color: "var(--text-primary)" }}
-            className="font-semibold mb-3"
+        <div className="space-y-1">
+          <button
+            onClick={() => onCategoryChange(null)}
+            style={{
+              backgroundColor: selectedCategory === null ? "var(--brand-fog)" : "transparent",
+              color: selectedCategory === null ? "var(--brand-ink)" : "var(--brand-slate)",
+              fontFamily: "var(--font-dm-sans)",
+              fontSize: "12px",
+              fontWeight: selectedCategory === null ? 500 : 400,
+              borderLeft: selectedCategory === null ? "2px solid var(--brand-sky)" : "2px solid transparent",
+              paddingLeft: "10px",
+            }}
+            className="w-full text-left py-2 rounded-r transition"
           >
-            Category
-          </h3>
-          <div className="space-y-2">
-            <button
-              onClick={() => onCategoryChange(null)}
-              style={{
-                backgroundColor:
-                  selectedCategory === null
-                    ? "rgba(37, 99, 235, 0.1)"
-                    : "transparent",
-                color:
-                  selectedCategory === null
-                    ? "rgb(37, 99, 235)"
-                    : "var(--text-secondary)",
-              }}
-              className={`w-full text-left px-3 py-2 rounded-lg transition ${
-                selectedCategory === null ? "font-medium" : "hover:opacity-80"
-              }`}
-            >
-              All Categories
-            </button>
-            {categories
-              .filter((cat) => categoriesFilter.includes(cat))
-              .map((category) => (
-                <button
-                  key={category}
-                  onClick={() =>
-                    onCategoryChange(
-                      selectedCategory === category ? null : category,
-                    )
-                  }
-                  style={{
-                    backgroundColor:
-                      selectedCategory === category
-                        ? "rgba(37, 99, 235, 0.1)"
-                        : "transparent",
-                    color:
-                      selectedCategory === category
-                        ? "rgb(37, 99, 235)"
-                        : "var(--text-secondary)",
-                  }}
-                  className={`w-full text-left px-3 py-2 rounded-lg transition ${
-                    selectedCategory === category
-                      ? "font-medium"
-                      : "hover:opacity-80"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-          </div>
+            All Categories
+          </button>
+
+          {categories
+            .filter((cat) => categoriesFilter.includes(cat))
+            .map((category) => (
+              <button
+                key={category}
+                onClick={() => onCategoryChange(selectedCategory === category ? null : category)}
+                style={{
+                  backgroundColor: selectedCategory === category ? "var(--brand-fog)" : "transparent",
+                  color: selectedCategory === category ? "var(--brand-ink)" : "var(--brand-slate)",
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "12px",
+                  fontWeight: selectedCategory === category ? 500 : 400,
+                  borderLeft: selectedCategory === category ? "2px solid var(--brand-sky)" : "2px solid transparent",
+                  paddingLeft: "10px",
+                }}
+                className="w-full text-left py-2 rounded-r transition"
+              >
+                {category}
+              </button>
+            ))}
         </div>
 
-        {/* Mobile Close Button */}
         <button
           onClick={() => setIsOpen(false)}
-          style={{ color: "var(--text-secondary)" }}
-          className="md:hidden w-full py-2 text-sm font-medium hover:text-blue-600 transition"
+          style={{
+            fontFamily: "var(--font-dm-sans)",
+            fontSize: "10px",
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: "var(--brand-slate)",
+          }}
+          className="md:hidden w-full py-2 mt-4 hover:opacity-80 transition"
         >
-          Close Filters
+          Close
         </button>
       </div>
     </>

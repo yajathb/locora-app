@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Place } from "@/types/index";
-import { MapPin, Phone, ChevronRight, Globe } from "lucide-react";
+import { MapPin, Phone, Globe } from "lucide-react";
 import CategoryBadge from "./CategoryBadge";
 
 interface PlaceCardProps {
@@ -15,22 +15,43 @@ export default function PlaceCard({ place }: PlaceCardProps) {
       <div className="group cursor-pointer animate-fade-in-up hover-lift">
         <div
           style={{
-            backgroundColor: "var(--bg-secondary)",
-            borderColor: "var(--border-color)",
+            backgroundColor: "var(--brand-sand)",
+            borderColor: "var(--brand-rule)",
           }}
-          className="rounded-xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden h-full flex flex-col border-0"
+          className="rounded overflow-hidden h-full flex flex-col border hover:shadow-md transition-shadow duration-300"
         >
           {/* Image */}
           <div
-            style={{ backgroundColor: "var(--bg-tertiary)" }}
+            style={{ backgroundColor: "var(--brand-steel)" }}
             className="relative overflow-hidden h-40"
           >
             <img
               src={place.image}
               alt={place.name}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/0 to-transparent" />
+            {/* "Locora Pick" tag — bottom-left, per brandkit card anatomy */}
+            {place.featured && (
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "12px",
+                  left: "12px",
+                  backgroundColor: "rgba(13,35,64,0.78)",
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "8px",
+                  fontWeight: 500,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "#ffffff",
+                  padding: "4px 10px",
+                  borderRadius: "3px",
+                }}
+              >
+                Locora Pick
+              </div>
+            )}
             <div className="absolute top-3 right-3">
               <CategoryBadge category={place.category} size="sm" />
             </div>
@@ -38,40 +59,69 @@ export default function PlaceCard({ place }: PlaceCardProps) {
 
           {/* Content */}
           <div className="flex-1 p-4 flex flex-col">
+            {/* Overline */}
+            <p
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "9px",
+                fontWeight: 500,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "var(--brand-sky)",
+                marginBottom: "5px",
+              }}
+            >
+              {place.category}
+            </p>
+
+            {/* Name — Cormorant, not bold */}
             <h3
-              style={{ color: "var(--text-primary)" }}
-              className="font-bold text-base group-hover:text-blue-600 transition-colors duration-200 line-clamp-1 mb-1"
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                fontSize: "20px",
+                fontWeight: 400,
+                color: "var(--brand-ink)",
+                lineHeight: 1.2,
+                marginBottom: "5px",
+              }}
+              className="line-clamp-1"
             >
               {place.name}
             </h3>
 
             <p
-              style={{ color: "var(--text-secondary)" }}
-              className="text-sm line-clamp-2 mb-3"
+              style={{
+                fontFamily: "var(--font-dm-sans)",
+                fontSize: "10.5px",
+                color: "var(--brand-slate)",
+                lineHeight: 1.65,
+                marginBottom: "12px",
+              }}
+              className="line-clamp-2"
             >
               {place.description}
             </p>
 
-            {/* Info */}
+            {/* Meta */}
             <div
-              style={{ color: "var(--text-secondary)" }}
-              className="space-y-1 text-xs mb-3"
+              style={{ fontFamily: "var(--font-dm-sans)", fontSize: "9.5px", color: "var(--brand-slate)" }}
+              className="space-y-1 mb-3"
             >
               {place.address && (
                 <div className="flex items-start gap-2">
-                  <MapPin className="w-3.5 h-3.5 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <MapPin className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: "var(--brand-sky)" }} />
                   <span className="line-clamp-1">{place.address}</span>
                 </div>
               )}
               {place.phone && (
                 <div className="flex items-center gap-2">
-                  <Phone className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
+                  <Phone className="w-3.5 h-3.5 shrink-0" style={{ color: "var(--brand-sky)" }} />
                   <span>{place.phone}</span>
                 </div>
               )}
               {place.hours && (
                 <div className="flex items-start gap-2">
-                  <span style={{ color: "var(--text-tertiary)" }}>Hours:</span>
+                  <span style={{ color: "var(--brand-slate)", opacity: 0.7 }}>Hours:</span>
                   <span>{place.hours}</span>
                 </div>
               )}
@@ -79,11 +129,23 @@ export default function PlaceCard({ place }: PlaceCardProps) {
 
             {/* Footer */}
             <div
-              style={{ borderColor: "var(--border-color)" }}
+              style={{ borderColor: "var(--brand-rule)" }}
               className="mt-auto pt-2 border-t flex items-center justify-between"
             >
-              {place.website && <Globe className="w-3.5 h-3.5 text-blue-600" />}
-              <ChevronRight className="w-4 h-4 group-hover:text-blue-600 transition-all duration-200 translate-x-0 group-hover:translate-x-1 ml-auto" />
+              {place.website && <Globe className="w-3.5 h-3.5" style={{ color: "var(--brand-sky)" }} />}
+              <span
+                style={{
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "8.5px",
+                  fontWeight: 500,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "var(--brand-sky)",
+                  marginLeft: "auto",
+                }}
+              >
+                Explore →
+              </span>
             </div>
           </div>
         </div>

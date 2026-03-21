@@ -1,32 +1,78 @@
 @import "tailwindcss";
 
 :root {
-  /* Light mode colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f9fafb;
-  --bg-tertiary: #f3f4f6;
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
-  --text-tertiary: #9ca3af;
-  --border-color: #e5e7eb;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  /* ── Brandkit color tokens ── */
+  --brand-navy: #0D2340;
+  --brand-steel: #1B3D5F;
+  --brand-sky: #3B78B0;
+  --brand-mist: #A8C4DE;
+  --brand-fog: #D6E6F2;
+  --brand-slate: #6B7C8D;
+  --brand-ink: #1A1E24;
+  --brand-paper: #F9F7F4;
+  --brand-sand: #EDE8E0;
+  --brand-gold: #C4A96B;
+  --brand-char: #3D4349;
+  --brand-rule: rgba(13, 35, 64, 0.12);
 
-  /* Define CSS variables for transformations */
+  /* ── Semantic aliases (keep existing vars working) ── */
+  --bg-primary: #D6E6F2;
+  --bg-secondary: #A8C4DE;
+  --bg-tertiary: #E8F0F7;
+  --bg-sand: #EDE8E0;
+  --bg-paper: #F9F7F4;
+  --bg-nav: #0D2340;             /* Navy — matches brandkit navbar */
+  --bg-navy: #0D2340;
+  --text-primary: #1A1E24;
+  --text-secondary: #6B7C8D;
+  --text-tertiary: #9AAAB8;
+  --border-color: rgba(13, 35, 64, 0.12);
+  --border-subtle: #D6E6F2;
+  --shadow-color: rgba(13, 35, 64, 0.1);
+  --accent-gold: #C4A96B;
+  --accent-charcoal: #3D4349;
+
+  /* Transforms & elevation */
   --translate-y-20: 20px;
   --translate-x-10: -10px;
   --translate-y-neg-4: -4px;
-  --box-shadow-default: 0 12px 24px var(--shadow-color);
+  --box-shadow-default: 0 8px 32px rgba(13, 35, 64, 0.12);
 }
 
 html.dark {
-  /* Dark mode colors */
-  --bg-primary: #00072d;
-  --bg-secondary: #1e293b;
-  --bg-tertiary: #334155;
-  --text-primary: #f5f5f5;
-  --text-secondary: #cbd5e1;
-  --text-tertiary: #94a3b8;
-  --border-color: #2e4c7c;
+  /* Backgrounds */
+  --bg-primary: #151E28;
+  --bg-secondary: #2A3F55;
+  --bg-tertiary: #131B25;
+  --bg-sand: #1C1F22;
+  --bg-paper: #111418;
+  --bg-nav: #0D2340;             /* Navy stays dark in both modes */
+  --bg-navy: #C8D8EE;
+
+  /* Brand — lightened for dark surfaces */
+  --brand-navy: #0D2340;         /* stays dark (bg use) */
+  --brand-steel: #1D3550;
+  --brand-sky: #5B99D2;
+  --brand-mist: #A8C4DE;
+  --brand-fog: #151E28;
+  --brand-slate: #7E8F9E;
+  --brand-ink: #E2E6EC;
+  --brand-paper: #111418;
+  --brand-sand: #1C1F22;
+  --brand-rule: rgba(168, 196, 222, 0.15);
+
+  /* Text */
+  --text-primary: #E2E6EC;
+  --text-secondary: #7E8F9E;
+  --text-tertiary: #4A5A6A;
+
+  /* Accent */
+  --accent-gold: #D4B97B;
+  --accent-charcoal: #A8B2BC;
+
+  /* Borders & shadows */
+  --border-color: rgba(168, 196, 222, 0.2);
+  --border-subtle: #151E28;
   --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -79,64 +125,120 @@ html.dark {
   }
 
   body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    transition:
-      background-color 0.3s,
-      color 0.3s;
+    background-color: var(--bg-paper);
+    color: var(--brand-ink);
+    font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
+    font-weight: 300;
+    transition: background-color 0.3s, color 0.3s;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: var(--text-primary);
-    @apply font-bold;
+  /* Headings default to Cormorant Garamond per brandkit */
+  h1, h2, h3 {
+    font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+    font-weight: 300;
+    color: var(--brand-ink);
   }
+
+  h4, h5, h6 {
+    font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
+    font-weight: 500;
+    color: var(--brand-ink);
+  }
+}
+
+a {
+  color: var(--brand-sky);
 }
 
 @layer components {
   .card {
-    @apply rounded-lg shadow-sm transition-all duration-300;
-    background-color: var(--bg-secondary);
+    @apply rounded overflow-hidden transition-all duration-300;
+    background-color: #ffffff;
+    border: 0.5px solid var(--brand-rule);
   }
 
+  /* Primary CTA — Navy fill, white text, DM Sans uppercase per brandkit */
   .btn-primary {
-    @apply px-4 py-2 rounded-lg font-semibold hover:bg-blue-700;
-    color: var(--text-primary);
-    background-color: var(--bg-primary);
+    background-color: var(--brand-navy);
+    color: #ffffff;
+    font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    transition: opacity 0.2s;
   }
 
   .btn-primary:hover {
-    background-color: #1d4ed8;
+    opacity: 0.9;
   }
 
+  /* Secondary CTA — Fog fill, Steel text per brandkit detail screen */
   .btn-secondary {
-    @apply px-4 py-2 rounded-lg font-semibold transition-all duration-200;
-    background-color: var(--bg-tertiary);
-    color: var(--text-primary);
+    background-color: var(--brand-fog);
+    color: var(--brand-steel);
+    font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border-radius: 4px;
+    border: 0.5px solid var(--brand-mist);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    transition: opacity 0.2s;
+  }
+
+  .btn-secondary:hover {
+    opacity: 0.8;
   }
 
   .nav-link {
-    @apply font-medium transition-colors duration-200;
-    color: var(--text-secondary);
+    font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--brand-mist);
+    transition: color 0.2s;
   }
 
   .nav-link:hover {
-    color: #2563eb;
+    color: #ffffff;
   }
 
+  /* Input — clean white, hair border, DM Sans */
   .input-field {
-    @apply rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500;
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
-    border-color: var(--border-color);
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 4px;
+    border: 0.5px solid var(--brand-rule);
+    background-color: #ffffff;
+    color: var(--brand-ink);
+    font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .input-field:focus {
+    border-color: var(--brand-sky);
   }
 
   .badge {
-    @apply rounded-full font-semibold transition-all duration-200;
+    @apply rounded-full;
+    font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 }
 
