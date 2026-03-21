@@ -8,14 +8,12 @@ import EventCard from "@/components/EventCard";
 import { Event } from "@/types/index";
 import { getEvents } from "@/lib/api";
 import { useEffect } from "react";
-import { useLocation } from "@/components/LocationProvider";
 
 export default function EventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const { city } = useLocation();
 
   useEffect(() => {
     const loadEvents = async () => {

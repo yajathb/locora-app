@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useLocation } from "@/components/LocationProvider";
 
 export default function Footer() {
-  const { city } = useLocation();
 
   return (
     <footer

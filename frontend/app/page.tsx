@@ -8,14 +8,12 @@ import EventCard from "@/components/EventCard";
 import PlaceCard from "@/components/PlaceCard";
 import { Event, Place } from "@/types/index";
 import { getFeaturedEvents, getFeaturedPlaces } from "@/lib/api";
-import { useLocation } from "@/components/LocationProvider";
 
 export default function Home() {
   const [events, setEvents] = useState<Event[]>([]);
   const [places, setPlaces] = useState<Place[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const { city } = useLocation();
 
   useEffect(() => {
     const loadFeatured = async () => {
