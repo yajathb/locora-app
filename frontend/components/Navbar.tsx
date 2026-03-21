@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, Calendar, Users, Moon, Sun } from "lucide-react";
+import { MapPin, Calendar, Users, Moon, Sun, Menu, X } from "lucide-react";
 import { useDarkMode } from "@/components/DarkModeProvider";
 import PlusDropdown from "@/components/PlusDropdown";
+import { useState } from "react";
 
 interface NavbarProps {}
 
 export default function Navbar({}: NavbarProps) {
   const { isDark, toggleDarkMode } = useDarkMode();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <nav
@@ -21,7 +23,8 @@ export default function Navbar({}: NavbarProps) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Wordmark — Cormorant Garamond, white, per brandkit */}
+
+          {/* Wordmark */}
           <Link href="/" className="flex items-center group">
             <span
               style={{
@@ -37,16 +40,11 @@ export default function Navbar({}: NavbarProps) {
             </span>
           </Link>
 
+          {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8">
             <Link
               href="/events"
-              style={{
-                color: "var(--brand-mist)",
-                fontFamily: "var(--font-dm-sans)",
-                fontSize: "13px",
-                fontWeight: 400,
-                letterSpacing: "0.02em",
-              }}
+              style={{ color: "var(--brand-mist)", fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 400, letterSpacing: "0.02em" }}
               className="hover:text-white transition-colors duration-200 flex items-center gap-2"
             >
               <Calendar className="w-4 h-4" />
@@ -54,13 +52,7 @@ export default function Navbar({}: NavbarProps) {
             </Link>
             <Link
               href="/places"
-              style={{
-                color: "var(--brand-mist)",
-                fontFamily: "var(--font-dm-sans)",
-                fontSize: "13px",
-                fontWeight: 400,
-                letterSpacing: "0.02em",
-              }}
+              style={{ color: "var(--brand-mist)", fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 400, letterSpacing: "0.02em" }}
               className="hover:text-white transition-colors duration-200 flex items-center gap-2"
             >
               <MapPin className="w-4 h-4" />
@@ -68,13 +60,7 @@ export default function Navbar({}: NavbarProps) {
             </Link>
             <Link
               href="/"
-              style={{
-                color: "var(--brand-mist)",
-                fontFamily: "var(--font-dm-sans)",
-                fontSize: "13px",
-                fontWeight: 400,
-                letterSpacing: "0.02em",
-              }}
+              style={{ color: "var(--brand-mist)", fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 400, letterSpacing: "0.02em" }}
               className="hover:text-white transition-colors duration-200 flex items-center gap-2"
             >
               <Users className="w-4 h-4" />
@@ -82,6 +68,7 @@ export default function Navbar({}: NavbarProps) {
             </Link>
           </div>
 
+          {/* Right controls */}
           <div className="flex items-center gap-4">
             <button
               onClick={toggleDarkMode}
@@ -93,39 +80,70 @@ export default function Navbar({}: NavbarProps) {
               {isDark ? (
                 <Sun className="w-5 h-5 text-yellow-400" />
               ) : (
-                <Moon
-                  className="w-5 h-5"
-                  style={{ color: "var(--brand-mist)" }}
-                />
+                <Moon className="w-5 h-5" style={{ color: "var(--brand-mist)" }} />
               )}
             </button>
 
             <PlusDropdown />
 
-            <div className="md:hidden">
-              <button
-                style={{ backgroundColor: "rgba(255,255,255,0.08)" }}
-                className="p-2 rounded-lg transition-colors duration-200"
-              >
-                <div className="w-6 h-6 flex flex-col justify-between">
-                  <span
-                    style={{ backgroundColor: "var(--brand-mist)" }}
-                    className="h-0.5 w-full"
-                  ></span>
-                  <span
-                    style={{ backgroundColor: "var(--brand-mist)" }}
-                    className="h-0.5 w-full"
-                  ></span>
-                  <span
-                    style={{ backgroundColor: "var(--brand-mist)" }}
-                    className="h-0.5 w-full"
-                  ></span>
-                </div>
-              </button>
-            </div>
+            {/* Hamburger — mobile only */}
+            <button
+              className="md:hidden p-2 rounded-lg transition-colors duration-200"
+              style={{ backgroundColor: "rgba(255,255,255,0.08)" }}
+              onClick={() => setMobileOpen((prev) => !prev)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen
+                ? <X className="w-5 h-5" style={{ color: "var(--brand-mist)" }} />
+                : <Menu className="w-5 h-5" style={{ color: "var(--brand-mist)" }} />
+              }
+            </button>
           </div>
+
         </div>
       </div>
+
+      {/* Mobile dropdown */}
+      {mobileOpen && (
+        <div
+          style={{
+            backgroundColor: "var(--brand-steel)",
+            borderTop: "0.5px solid rgba(59,120,176,0.3)",
+          }}
+          className="md:hidden"
+        >
+          <div className="max-w-7xl mx-auto px-4 py-3 flex flex-col">
+            {[
+              { href: "/events", icon: <Calendar className="w-4 h-4" />, label: "Events" },
+              { href: "/places", icon: <MapPin className="w-4 h-4" />,   label: "Places" },
+              { href: "/",       icon: <Users className="w-4 h-4" />,    label: "Community" },
+            ].map(({ href, icon, label }) => (
+              <Link
+                key={label}
+                href={href}
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  fontFamily: "var(--font-dm-sans)",
+                  fontSize: "13px",
+                  fontWeight: 400,
+                  letterSpacing: "0.02em",
+                  color: "var(--brand-mist)",
+                  borderBottom: "0.5px solid rgba(59,120,176,0.2)",
+                  padding: "14px 0",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+                className="hover:text-white transition-colors duration-200"
+              >
+                {icon}
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
     </nav>
   );
 }
