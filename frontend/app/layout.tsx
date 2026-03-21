@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { DarkModeProvider } from "@/components/DarkModeProvider";
-import { LocationProvider } from "@/components/LocationProvider";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -55,11 +54,9 @@ export default function RootLayout({
       </head>
       <body className={`${cormorant.variable} ${dmSans.variable} antialiased`}>
         <DarkModeProvider>
-          <LocationProvider>
             <Navbar />
             {children}
             <Footer />
-          </LocationProvider>
         </DarkModeProvider>
       </body>
     </html>
