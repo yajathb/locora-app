@@ -1,4 +1,4 @@
-import { Event, Place, FilterOptions } from "@/types/index";
+import { Event, Place, FilterOptions } from "@/types";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -7,109 +7,97 @@ const supabase = createClient(
 );
 
 export async function getEvents(filters?: FilterOptions): Promise<Event[]> {
-  try {
-    let query = supabase.from("events").select("*");
+  let query = supabase.from("events").select("*");
 
-    if (filters?.category) {
-      query = query.eq("category", filters.category);
-    }
-    if (filters?.dateFrom) {
-      query = query.gte("date", filters.dateFrom);
-    }
-    if (filters?.dateTo) {
-      query = query.lte("date", filters.dateTo);
-    }
-    if (filters?.search) {
-      query = query.ilike("name", `%${filters.search}%`);
-    }
-
-    const { data, error } = await query;
-    if (error) throw error;
-    return data as Event[];
-  } catch (error) {
-    console.error("Error fetching events:", error);
-    throw error;
+  if (filters?.category) {
+    query = query.eq("category", filters.category);
   }
+  if (filters?.dateFrom) {
+    query = query.gte("date", filters.dateFrom);
+  }
+  if (filters?.dateTo) {
+    query = query.lte("date", filters.dateTo);
+  }
+  if (filters?.search) {
+    query = query.ilike("name", `%${filters.search}%`);
+  }
+
+  const { data, error } = await query;
+  if (error) {
+    console.error("Error fetching events:", error);
+    throw new Error(error.message);
+  }
+  return data as Event[];
 }
 
 export async function getEventById(id: string): Promise<Event | null> {
-  try {
-    const { data, error } = await supabase
-      .from("events")
-      .select("*")
-      .eq("id", id)
-      .single();
-    if (error) throw error;
-    return data as Event | null;
-  } catch (error) {
+  const { data, error } = await supabase
+    .from("events")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (error) {
     console.error("Error fetching event by ID:", error);
-    throw error;
+    throw new Error(error.message);
   }
+  return data as Event | null;
 }
 
 export async function getPlaces(filters?: FilterOptions): Promise<Place[]> {
-  try {
-    let query = supabase.from("places").select("*");
+  let query = supabase.from("places").select("*");
 
-    if (filters?.category) {
-      query = query.eq("category", filters.category);
-    }
-    if (filters?.search) {
-      query = query.ilike("name", `%${filters.search}%`);
-    }
-
-    const { data, error } = await query;
-    if (error) throw error;
-    return data as Place[];
-  } catch (error) {
-    console.error("Error fetching places:", error);
-    throw error;
+  if (filters?.category) {
+    query = query.eq("category", filters.category);
   }
+  if (filters?.search) {
+    query = query.ilike("name", `%${filters.search}%`);
+  }
+
+  const { data, error } = await query;
+  if (error) {
+    console.error("Error fetching places:", error);
+    throw new Error(error.message);
+  }
+  return data as Place[];
 }
 
 export async function getPlaceById(id: string): Promise<Place | null> {
-  try {
-    const { data, error } = await supabase
-      .from("places")
-      .select("*")
-      .eq("id", id)
-      .single();
-    if (error) throw error;
-    return data as Place | null;
-  } catch (error) {
+  const { data, error } = await supabase
+    .from("places")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (error) {
     console.error("Error fetching place by ID:", error);
-    throw error;
+    throw new Error(error.message);
   }
+  return data as Place | null;
 }
 
 export async function getFeaturedEvents(): Promise<Event[]> {
-  try {
-    const { data, error } = await supabase
-      .from("events")
-      .select("*")
-      .eq("featured", 1)
-      .limit(6);
-    if (error) throw error;
-    return data as Event[];
-  } catch (error) {
+  const { data, error } = await supabase
+    .from("events")
+    .select("*")
+    .eq("featured", 1)
+    .limit(6);
+  if (error) {
     console.error("Error fetching featured events:", error);
-    throw error;
+    throw new Error(error.message);
   }
+  return data as Event[];
 }
 
 export async function getFeaturedPlaces(): Promise<Place[]> {
-  try {
-    const { data, error } = await supabase
-      .from("places")
-      .select("*")
-      .eq("featured", 1)
-      .limit(6);
-    if (error) throw error;
-    return data as Place[];
-  } catch (error) {
+  const { data, error } = await supabase
+    .from("places")
+    .select("*")
+    .eq("featured", 1)
+    .limit(6);
+  if (error) {
     console.error("Error fetching featured places:", error);
-    throw error;
+    throw new Error(error.message);
   }
+  return data as Place[];
 }
 
 export function getCategoryColor(category: string): string {

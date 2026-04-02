@@ -5,7 +5,7 @@ import { Calendar } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
 import FilterSidebar from "@/components/FilterSidebar";
 import EventCard from "@/components/EventCard";
-import { Event } from "@/types/index";
+import { Event } from "@/types";
 import { getEvents } from "@/lib/api";
 import { useEffect } from "react";
 
@@ -41,7 +41,6 @@ export default function EventsPage() {
 
   return (
     <main style={{ backgroundColor: "var(--bg-paper)" }}>
-      {/* Header — Steel bg, editorial style */}
       <section
         style={{ backgroundColor: "var(--brand-steel)" }}
         className="py-14"
@@ -81,7 +80,7 @@ export default function EventsPage() {
               marginBottom: "24px",
             }}
           >
-            Discover what's happening. Find events that match your interests.
+            Discover what&apos;s happening. Find events that match your interests.
           </p>
           <SearchBar onSearch={setSearchQuery} placeholder="Search events..." />
         </div>

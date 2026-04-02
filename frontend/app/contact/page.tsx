@@ -70,7 +70,7 @@ export default function ContactPage() {
                 lineHeight: 1.2,
                 marginBottom: "28px",
               }}>
-                We'd love to hear from you.
+                We&apos;d love to hear from you.
               </h2>
 
               <form className="space-y-5">

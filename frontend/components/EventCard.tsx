@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { Event } from "@/types/index";
-import { MapPin, Clock, ChevronRight, Calendar } from "lucide-react";
+import { Event } from "@/types";
+import { MapPin, Clock, Calendar } from "lucide-react";
 import CategoryBadge from "./CategoryBadge";
 import { formatDate, formatTime } from "@/lib/api";
 
@@ -27,10 +28,12 @@ export default function EventCard({ event, featured }: EventCardProps) {
             style={{ backgroundColor: "var(--brand-steel)"}}
             className="relative overflow-hidden h-48"
           >
-            <img
+            <Image
               src={event.image}
               alt={event.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/0 to-transparent" />
             {/* "Locora Pick" tag — bottom-left, per brandkit card anatomy */}

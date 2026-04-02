@@ -6,9 +6,7 @@ import { useDarkMode } from "@/components/DarkModeProvider";
 import PlusDropdown from "@/components/PlusDropdown";
 import { useState } from "react";
 
-interface NavbarProps {}
-
-export default function Navbar({}: NavbarProps) {
+export default function Navbar() {
   const { isDark, toggleDarkMode } = useDarkMode();
   const [mobileOpen, setMobileOpen] = useState(false);
 

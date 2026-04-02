@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import EventAdder from "@/components/EventAdder";
 
 export default function AddEventPage() {
