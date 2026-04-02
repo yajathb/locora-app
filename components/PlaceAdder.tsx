@@ -31,18 +31,25 @@ export default function PlaceAdder() {
       alert("Please fill in the required fields: Place Name and Location.");
       return;
     }
-    const imageBase64 = placeImage ? await toBase64(placeImage) : null;
-    const uniqueString = `${placeName}_${placeLocation}_${placeDescription}`;
-    const id = CryptoJS.MD5(uniqueString).toString();
-    const payload: Record<string, unknown> = { id, name: placeName, location: placeLocation };
-    if (placeDescription) payload.description = placeDescription;
-    if (placeCategory) payload.category = placeCategory;
-    if (placeWeblink) payload.weblink = placeWeblink;
-    if (placeImage) payload.image = imageBase64;
-    if (placeAddress) payload.address = placeAddress;
+
     try {
+      const imageBase64 = placeImage ? await toBase64(placeImage) : null;
+      const uniqueString = `${placeName}_${placeLocation}_${placeDescription}`;
+      const id = CryptoJS.MD5(uniqueString).toString();
+      const payload: Record<string, unknown> = { id, name: placeName, location: placeLocation };
+      if (placeDescription) payload.description = placeDescription;
+      if (placeCategory) payload.category = placeCategory;
+      if (placeWeblink) payload.weblink = placeWeblink;
+      if (placeImage) payload.image = imageBase64;
+      if (placeAddress) payload.address = placeAddress;
+
       const { error } = await supabase.from("places").insert(payload);
-      if (error) throw error;
+      if (error) {
+        console.error("Error adding place:", error);
+        alert("An error occurred while adding the place. Please try again.");
+        return;
+      }
+
       alert("Place added successfully!");
       setPlaceName(""); setPlaceDescription(""); setPlaceLocation("");
       setPlaceCategory(""); setPlaceWeblink(""); setPlaceImage(null); setPlaceAddress("");

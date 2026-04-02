@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MapPin } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
 import FilterSidebar from "@/components/FilterSidebar";
 import PlaceCard from "@/components/PlaceCard";
-import { Place } from "@/types/index";
+import type { Place } from "@/types";
 import { getPlaces } from "@/lib/api";
-import { useEffect } from "react";
 
 export default function PlacesPage() {
   const [places, setPlaces] = useState<Place[]>([]);

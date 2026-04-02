@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 :root {
+  --font-dm-sans: "DM Sans";
+  --font-cormorant: "Cormorant Garamond";
+
   /* ── Brandkit color tokens ── */
   --brand-navy: #0D2340;
   --brand-steel: #1B3D5F;
