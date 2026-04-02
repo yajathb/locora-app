@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Filter, ChevronDown } from "lucide-react";
-import { Category } from "@/types/index";
+import type { Category } from "@/types";
 
 interface FilterSidebarProps {
   categories: string[];

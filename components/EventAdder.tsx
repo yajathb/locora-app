@@ -35,21 +35,28 @@ export default function EventAdder() {
       alert("Please fill in the required fields: Event Name, Date, and Time.");
       return;
     }
-    const imageBase64 = eventImage ? await toBase64(eventImage) : null;
-    const uniqueString = `${eventName}_${eventDate}_${eventTime}_${eventDescription}`;
-    const id = CryptoJS.MD5(uniqueString).toString();
-    const payload: Record<string, unknown> = { id, name: eventName, date: eventDate, time: eventTime };
-    if (eventEndTime) payload.end_time = eventEndTime;
-    if (eventDescription) payload.description = eventDescription;
-    if (eventLocation) payload.location = eventLocation;
-    if (eventCategory) payload.category = eventCategory;
-    if (eventOrganizer) payload.organizer = eventOrganizer;
-    if (eventWeblink) payload.weblink = eventWeblink;
-    if (eventImage) payload.image = imageBase64;
-    if (eventAddress) payload.address = eventAddress;
+
     try {
+      const imageBase64 = eventImage ? await toBase64(eventImage) : null;
+      const uniqueString = `${eventName}_${eventDate}_${eventTime}_${eventDescription}`;
+      const id = CryptoJS.MD5(uniqueString).toString();
+      const payload: Record<string, unknown> = { id, name: eventName, date: eventDate, time: eventTime };
+      if (eventEndTime) payload.end_time = eventEndTime;
+      if (eventDescription) payload.description = eventDescription;
+      if (eventLocation) payload.location = eventLocation;
+      if (eventCategory) payload.category = eventCategory;
+      if (eventOrganizer) payload.organizer = eventOrganizer;
+      if (eventWeblink) payload.weblink = eventWeblink;
+      if (eventImage) payload.image = imageBase64;
+      if (eventAddress) payload.address = eventAddress;
+
       const { error } = await supabase.from("events").insert(payload);
-      if (error) throw error;
+      if (error) {
+        console.error("Error adding event:", error);
+        alert("An error occurred while adding the event. Please try again.");
+        return;
+      }
+
       alert("Event added successfully!");
       setEventName(""); setEventDate(""); setEventTime(""); setEventEndTime("");
       setEventDescription(""); setEventLocation(""); setEventCategory("");

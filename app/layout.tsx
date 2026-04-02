@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { DarkModeProvider } from "@/components/DarkModeProvider";
+import { Analytics } from "@vercel/analytics/next";
+
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -32,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <title>Locora - The Definitive Guide to Brentwood</title>
         {/* Flash-prevention: Paper light #F9F7F4, Paper dark #111418 */}
         <style
           dangerouslySetInnerHTML={{
@@ -53,6 +56,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${cormorant.variable} ${dmSans.variable} antialiased`}>
+      <Analytics />
         <DarkModeProvider>
             <Navbar />
             {children}
