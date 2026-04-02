@@ -1,12 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, MapPin, Phone, Clock, ExternalLink } from "lucide-react";
 import CategoryBadge from "@/components/CategoryBadge";
 import DetailSection from "@/components/DetailSection";
-import { Place } from "@/types/index";
+import { Place } from "@/types";
 import { getPlaceById } from "@/lib/api";
 
 export default function PlaceDetailPage() {
@@ -46,7 +47,7 @@ export default function PlaceDetailPage() {
             Place Not Found
           </h1>
           <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", color: "var(--brand-slate)", marginBottom: "20px" }}>
-            The place you're looking for doesn't exist.
+            The place you&apos;re looking for doesn&apos;t exist.
           </p>
           <Link href="/places" style={{ fontFamily: "var(--font-dm-sans)", fontSize: "11px", fontWeight: 500, letterSpacing: "0.14em", textTransform: "uppercase" as const, color: "var(--brand-sky)" }} className="hover:opacity-80 transition">
             ← Back to Places
@@ -70,8 +71,14 @@ export default function PlaceDetailPage() {
         <div style={{ backgroundColor: "#ffffff", borderColor: "var(--brand-rule)" }} className="rounded border overflow-hidden">
           {/* Image */}
           <div style={{ backgroundColor: "var(--brand-steel)" }} className="w-full h-80 overflow-hidden relative">
-            <img src={place.image} alt={place.name} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+            <Image
+              src={place.image}
+              alt={place.name}
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
           </div>
 
           {/* Content */}

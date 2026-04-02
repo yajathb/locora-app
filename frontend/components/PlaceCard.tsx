@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { Place } from "@/types/index";
+import { Place } from "@/types";
 import { MapPin, Phone, Globe } from "lucide-react";
 import CategoryBadge from "./CategoryBadge";
 
@@ -25,10 +26,12 @@ export default function PlaceCard({ place }: PlaceCardProps) {
             style={{ backgroundColor: "var(--brand-steel)" }}
             className="relative overflow-hidden h-40"
           >
-            <img
+            <Image
               src={place.image}
               alt={place.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/0 to-transparent" />
             {/* "Locora Pick" tag — bottom-left, per brandkit card anatomy */}

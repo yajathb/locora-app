@@ -79,7 +79,7 @@ export default function AboutPage() {
             maxWidth: "600px",
             marginBottom: "16px",
           }}>
-            Information about Brentwood shouldn't be scattered across outdated websites and disconnected pages. Locora brings everything together — events, places, and community moments — written and edited with the care of a city magazine, delivered with the accessibility of a mobile app.
+            Information about Brentwood shouldn&apos;t be scattered across outdated websites and disconnected pages. Locora brings everything together — events, places, and community moments — written and edited with the care of a city magazine, delivered with the accessibility of a mobile app.
           </p>
           <p style={{
             fontFamily: "var(--font-dm-sans)",
@@ -155,7 +155,7 @@ export default function AboutPage() {
                 lineHeight: 1.55,
                 marginBottom: "20px",
               }}>
-                "There's just no good way to find out what's going on in Brentwood. I want to know where the cool events are, which restaurants are actually worth going to, and what hidden gems I might be missing. So I built Locora to solve that problem — a guide for people who love this city as much as I do."
+                &ldquo;There&apos;s just no good way to find out what&apos;s going on in Brentwood. I want to know where the cool events are, which restaurants are actually worth going to, and what hidden gems I might be missing. So I built Locora to solve that problem — a guide for people who love this city as much as I do.&rdquo;
               </p>
               <p style={{
                 fontFamily: "var(--font-dm-sans)",
@@ -280,10 +280,8 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-6">
             {[
               { name: "Aarav Bhattacharya", role: "Founder", bio: "There's just no good way to find out what's going on in Brentwood. I want to know where the cool events are, which restaurants are actually worth going to, and what hidden gems I might be missing. So I started Locora to solve that problem as a guide for people who love this city as much as I do." },
-              { name: "Nahar Grewal", role: "Co-Founder", bio: "I love creating tools that help people discover and engage with their communities. In my role as Co-Founder, I work to connect Locora with local businesses and organizations to ensure our guide is comprehensive and inclusive." },
-              { name: "Aashutosh Vyas", role: "Lead Programmer", bio: "I'm passionate about building tools that help people discover and engage with their communities. In my role as Lead Programmer, I work to ensure that Locora delivers a seamless and enjoyable experience for all users." },
               { name: "Yajath Barve", role: "Lead Programmer", bio: "I'm passionate about building tools that help people discover and engage with their communities. In my role as Lead Programmer, I work to ensure that Locora delivers a seamless and enjoyable experience for all users." },
-              { name: "Satvika Srikireddy", role: "Social Media Manager", bio: "I believe that good design can make information more accessible and enjoyable to interact with. As Locora's Social Media Manager, I focus on crafting a visually appealing and user-friendly interface that reflects the unique character of Brentwood." },
+              { name: "Satvika Srikireddy", role: "Social Media Designer", bio: "I believe that good design can make information more accessible and enjoyable to interact with. As Locora's Social Media Designer, I focus on crafting a visually appealing and user-friendly interface that reflects the unique character of Brentwood." },
             ].map((person, i) => (
               <div key={i} style={{
                 backgroundColor: "var(--brand-fog)",
@@ -441,7 +439,7 @@ export default function AboutPage() {
             lineHeight: 1.1,
             marginBottom: "16px",
           }}>
-            We'd love to hear from you.
+            We&apos;d love to hear from you.
           </h2>
           <div style={{ width: "36px", height: "0.5px", backgroundColor: "var(--brand-sky)", margin: "0 auto 20px" }} />
           <p style={{

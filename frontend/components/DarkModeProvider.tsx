@@ -18,34 +18,24 @@ const DarkModeContext = createContext<DarkModeContextType | undefined>(
 );
 
 export function DarkModeProvider({ children }: { children: ReactNode }) {
-  const [isDark, setIsDark] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  // Hydrate dark mode preference after client mount to avoid SSR mismatch
-  useEffect(() => {
-    const stored = localStorage.getItem("darkMode");
-    let shouldBeDark = false;
-
-    if (stored !== null) {
-      shouldBeDark = stored === "true";
-    } else {
-      // Check system preference
-      shouldBeDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
     }
 
-    setIsDark(shouldBeDark);
-    setMounted(true);
-  }, []);
+    const stored = window.localStorage.getItem("darkMode");
+    if (stored !== null) {
+      return stored === "true";
+    }
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
 
   // Apply dark mode class when isDark changes
   useEffect(() => {
     const html = document.documentElement;
-    if (isDark) {
-      html.classList.add("dark");
-    } else {
-      html.classList.remove("dark");
-    }
-    localStorage.setItem("darkMode", isDark.toString());
+    html.classList.toggle("dark", isDark);
+    localStorage.setItem("darkMode", String(isDark));
   }, [isDark]);
 
   const toggleDarkMode = () => {

@@ -1,12 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar, MapPin, User, Clock, ExternalLink } from "lucide-react";
 import CategoryBadge from "@/components/CategoryBadge";
 import DetailSection from "@/components/DetailSection";
-import { Event } from "@/types/index";
+import { Event } from "@/types";
 import { getEventById, formatDate, formatTime } from "@/lib/api";
 
 export default function EventDetailPage() {
@@ -46,7 +47,7 @@ export default function EventDetailPage() {
             Event Not Found
           </h1>
           <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", color: "var(--brand-slate)", marginBottom: "20px" }}>
-            The event you're looking for doesn't exist.
+            The event you&apos;re looking for doesn&apos;t exist.
           </p>
           <Link href="/events" style={{ fontFamily: "var(--font-dm-sans)", fontSize: "11px", fontWeight: 500, letterSpacing: "0.14em", textTransform: "uppercase" as const, color: "var(--brand-sky)" }} className="hover:opacity-80 transition">
             ← Back to Events
@@ -70,7 +71,13 @@ export default function EventDetailPage() {
         <div style={{ backgroundColor: "var(--brand-paper)", borderColor: "var(--brand-rule)" }} className="rounded border overflow-hidden">
           {/* Image */}
           <div style={{ backgroundColor: "var(--brand-steel)" }} className="w-full h-80 overflow-hidden relative">
-            <img src={event.image} alt={event.name} className="w-full h-full object-cover" />
+            <Image
+              src={event.image}
+              alt={event.name}
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
             <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
           </div>
 
@@ -125,7 +132,7 @@ export default function EventDetailPage() {
                 Getting There
               </p>
               <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "12px", color: "var(--brand-ink)", lineHeight: 1.65 }}>
-                {event.location} is located at {event.address}. Check the organizer's website for parking and accessibility information.
+                {event.location} is located at {event.address}. Check the organizer&apos;s website for parking and accessibility information.
               </p>
             </div>
           </div>

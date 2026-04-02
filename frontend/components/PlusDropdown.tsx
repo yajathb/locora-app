@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 
 function PlusDropdown() {
   const [open, setOpen] = useState(false);
@@ -22,9 +23,8 @@ function PlusDropdown() {
           backgroundColor: "rgba(255,255,255,0.1)",
           color: "var(--brand-mist)",
           fontFamily: "var(--font-dm-sans)",
-          fontSize: "20px",
-          fontWeight: 300,
-          width: "36px",
+          fontWeight: 100,
+          width: "140px",
           height: "36px",
           borderRadius: "4px",
           border: "0.5px solid rgba(168,196,222,0.3)",
@@ -34,7 +34,7 @@ function PlusDropdown() {
         }}
         className="hover:bg-white/20 transition"
       >
-        +
+        + Add an item
       </button>
 
       {open && (
@@ -47,7 +47,7 @@ function PlusDropdown() {
           }}
           className="absolute top-[110%] left-0 rounded border z-50 overflow-hidden"
         >
-          <a
+          <Link
             href="/events/add"
             style={{
               fontFamily: "var(--font-dm-sans)",
@@ -60,8 +60,8 @@ function PlusDropdown() {
             className="hover:bg-fog transition-colors duration-150"
           >
             Add an Event
-          </a>
-          <a
+          </Link>
+          <Link
             href="/places/add"
             style={{
               fontFamily: "var(--font-dm-sans)",
@@ -73,7 +73,7 @@ function PlusDropdown() {
             className="hover:bg-fog transition-colors duration-150"
           >
             Add a Place
-          </a>
+          </Link>
         </div>
       )}
     </div>

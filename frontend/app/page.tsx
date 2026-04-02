@@ -6,14 +6,13 @@ import { ArrowRight } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
 import EventCard from "@/components/EventCard";
 import PlaceCard from "@/components/PlaceCard";
-import { Event, Place } from "@/types/index";
+import { Event, Place } from "@/types";
 import { getFeaturedEvents, getFeaturedPlaces } from "@/lib/api";
 
 export default function Home() {
   const [events, setEvents] = useState<Event[]>([]);
   const [places, setPlaces] = useState<Place[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const loadFeatured = async () => {
@@ -103,10 +102,7 @@ export default function Home() {
 
             {/* Search */}
             <div className="mb-8 max-w-lg">
-              <SearchBar
-                onSearch={setSearchQuery}
-                placeholder="Search events, places, opportunities..."
-              />
+              <SearchBar onSearch={() => {}} placeholder="Search events, places, opportunities..." />
             </div>
 
             {/* CTAs — Navy primary, Fog secondary per brandkit detail page */}
@@ -379,7 +375,7 @@ export default function Home() {
               marginBottom: "12px",
             }}
           >
-            Information about Brentwood shouldn't be scattered across outdated
+            Information about Brentwood shouldn&apos;t be scattered across outdated
             websites and disconnected pages. Locora brings everything together —
             events, places, and opportunities — into one curated platform.
           </p>
@@ -393,7 +389,7 @@ export default function Home() {
               lineHeight: 1.6,
             }}
           >
-            "One neighborhood, one standout place, one season at a time."
+            &ldquo;One neighborhood, one standout place, one season at a time.&rdquo;
           </p>
         </div>
       </section>
